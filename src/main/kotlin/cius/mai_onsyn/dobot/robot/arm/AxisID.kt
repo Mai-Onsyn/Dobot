@@ -1,0 +1,28 @@
+package cius.mai_onsyn.dobot.robot.arm
+
+object AxisID {
+    const val J1P = "J1+"
+    const val J1N = "J1-"
+    const val J2P = "J2+"
+    const val J2N = "J2-"
+    const val J3P = "J3+"
+    const val J3N = "J3-"
+    const val J4P = "J4+"
+    const val J4N = "J4-"
+    const val J5P = "J5+"
+    const val J5N = "J5-"
+    const val J6P = "J6+"
+    const val J6N = "J6-"
+    const val XP  = "X+"
+    const val XN  = "X-"
+    const val YP  = "Y+"
+    const val YN  = "Y-"
+    const val ZP  = "Z+"
+    const val ZN  = "Z-"
+    const val RXP = "Rx+"
+    const val RXN = "Rx-"
+    const val RYP = "Ry+"
+    const val RYN = "Ry-"
+    const val RZP = "Rz+"
+    const val RZN = "Rz-"
+}
