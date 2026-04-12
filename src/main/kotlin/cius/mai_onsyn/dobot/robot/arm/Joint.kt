@@ -40,4 +40,14 @@ data class Joint(
         return j1 == other.j1 && j2 == other.j2 && j3 == other.j3 &&
                j4 == other.j4 && j5 == other.j5 && j6 == other.j6
     }
+
+    override fun hashCode(): Int {
+        var result = j1.hashCode()
+        result = 31 * result + j2.hashCode()
+        result = 31 * result + j3.hashCode()
+        result = 31 * result + j4.hashCode()
+        result = 31 * result + j5.hashCode()
+        result = 31 * result + j6.hashCode()
+        return result
+    }
 }

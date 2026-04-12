@@ -38,10 +38,15 @@ class HandApi(private val modbus: RobotModbusApi) {
     fun getSpeed(): HandJoint? = universalHandJointGetter(14)
     fun getTemperature(): HandJoint? = universalHandJointGetter(21)
 
-    fun getNormalForce(): HandFinger? = universalHandJointGetter(35, 4, 5)
-    fun getTangentialForce(): HandFinger? = universalHandJointGetter(36, 4, 5)
-    fun getTangentialForceDirection(): HandFinger? = universalHandJointGetter(37, 4, 5)
-    fun getApproachIncrement(): HandFinger? = universalHandJointGetter(38, 4, 5)
+    fun getNormalForce(): HandFinger? = universalHandJointGetter2(0)
+    fun getTangentialForce(): HandFinger? = universalHandJointGetter2(1)
+    fun getTangentialForceDirection(): HandFinger? = universalHandJointGetter2(2)
+    fun getApproachIncrement(): HandFinger? = universalHandJointGetter2(3)
+
+    fun pressureSensingDataSelection(finger: Int): Boolean {
+        val response = modbus.setHoldRegs(modbusIndex, 42, 1, "{$finger}")
+        return response.isSuccess()
+    }
 
     fun getErrorCode() {
         //TODO("Not yet implemented")
@@ -93,17 +98,19 @@ class HandApi(private val modbus: RobotModbusApi) {
         } else null
     }
 
-    private fun universalHandJointGetter(startAddress: Int, step: Int, count: Int): HandFinger? {
+    private fun universalHandJointGetter2(offset: Int): HandFinger? {
         val valueList = mutableListOf<Int>()
-        for (i in 0..<count) {
-            val address = startAddress + i * step
-            val r = modbus.getInRegs(modbusIndex, address, 1)
+        for (i in 0..4) {
+            pressureSensingDataSelection(i + 1)
+            Thread.sleep(15)
+            val address = 35 + i * 4
+            val r = modbus.getInRegs(modbusIndex, address, 4)
             if (r.isSuccess() && r.refValues.isNotEmpty()) {
-                valueList.add(r.refValues[0].value as Int)
-                Thread.sleep(5)
+                valueList.add(r.refValues[offset].value as Int)
             }
+            Thread.sleep(15)
         }
-        return if (valueList.size == count) {
+        return if (valueList.size == 5) {
             HandFinger(
                 valueList[0], valueList[1], valueList[2],
                 valueList[3], valueList[4]

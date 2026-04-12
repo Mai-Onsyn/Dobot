@@ -15,7 +15,6 @@ class DobotE6V4(host: String) {
 
     fun connect() {
         dashboard.connect()
-        handApi.connect()
 //        sensor.connect()
     }
 
@@ -28,6 +27,7 @@ class DobotE6V4(host: String) {
     @TestOnly
     fun initialize(): Boolean {
         connect()
+        control.clearError()
         val requestControl = control.requestControl()
         if (!requestControl.isSuccess()) {
             disconnect()
@@ -35,8 +35,8 @@ class DobotE6V4(host: String) {
         }
         control.emergencyStop(false)
         control.stop()
-        control.clearError()
         control.enableRobot()
+        handApi.connect()
 
         return true
     }

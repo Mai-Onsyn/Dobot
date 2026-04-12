@@ -17,13 +17,20 @@ fun main() {
         while (!appExited) {
             log.info("=".repeat(80))
             log.info("Pose:         ${handApi.getPose()?.toString()}")
+            Thread.sleep(15)
             log.info("Torque:       ${handApi.getTorque()?.toString()}")
-            log.info("Speed:        ${handApi.getSpeed()}")
-            log.info("Temperature:  ${handApi.getTemperature()}")
-            log.info("Normal Force: ${handApi.getNormalForce()}")
-            log.info("Tan F:        ${handApi.getTangentialForce()}")
-            log.info("Tan F Dir:    ${handApi.getTangentialForceDirection()}")
-            log.info("Approach Inc: ${handApi.getApproachIncrement()}")
+            Thread.sleep(15)
+            log.info("Speed:        ${handApi.getSpeed()?.toString()}")
+            Thread.sleep(15)
+            log.info("Temperature:  ${handApi.getTemperature()?.toString()}")
+            Thread.sleep(15)
+            log.info("Normal Force: ${handApi.getNormalForce()?.toString()}")
+            Thread.sleep(15)
+            log.info("Tan F:        ${handApi.getTangentialForce()?.toString()}")
+            Thread.sleep(15)
+            log.info("Tan F Dir:    ${handApi.getTangentialForceDirection()?.toString()}")
+            Thread.sleep(15)
+            log.info("Approach Inc: ${handApi.getApproachIncrement()?.toString()}")
             Thread.sleep(1000)
         }
     }
@@ -36,6 +43,6 @@ fun main() {
         }
         Thread.sleep(500)
     }
-    dot.control.disableRobot()
+//    dot.control.disableRobot()
     dot.disconnect()
 }
