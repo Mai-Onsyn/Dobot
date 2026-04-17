@@ -13,8 +13,16 @@ data class HandJoint(
         return "{$thumbPitch,$thumbYaw,$finger1,$finger2,$finger3,$finger4,$thumbRoll}"
     }
 
+    fun toIntArray(): IntArray {
+        return intArrayOf(thumbPitch, thumbYaw, finger1, finger2, finger3, finger4, thumbRoll)
+    }
+
     companion object {
         val OPEN = HandJoint(255, 255, 255, 255, 255, 255, 255)
         val FRIENDLY_POSE = HandJoint(60, 128, 40, 255, 40, 40, 255)
+
+        fun byIntArray(joints: IntArray): HandJoint {
+            return HandJoint(joints[0], joints[1], joints[2], joints[3], joints[4], joints[5], joints[6])
+        }
     }
 }

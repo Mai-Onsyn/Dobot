@@ -23,6 +23,18 @@ data class Joint(
             )
         }
 
+        fun getJointIndex(key: String): Int {
+            return when (key) {
+                "j1" -> 0
+                "j2" -> 1
+                "j3" -> 2
+                "j4" -> 3
+                "j5" -> 4
+                "j6" -> 5
+                else -> -1
+            }
+        }
+
         val DEFAULT = Joint(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
         val OUT_FACTORY = Joint(0.0, 45.0, -90.0, -45.0, 90.0, 0.0)
     }
