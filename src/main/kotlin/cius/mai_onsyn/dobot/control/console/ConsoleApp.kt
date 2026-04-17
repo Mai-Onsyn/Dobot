@@ -20,6 +20,8 @@ class ConsoleApp(
 
     fun run() {
         val scanner = Scanner(System.`in`)
+        log.info("DobotE6V4控制台已启动")
+        log.info("输入 'exit' 退出")
         while (true) {
             if (scanner.hasNextLine()) {
                 val line = scanner.nextLine().split(" ")

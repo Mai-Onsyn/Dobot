@@ -32,7 +32,7 @@ open class SerialConnection {
         if (comPort != null && comPort!!.isOpen) {
             val data: ByteArray = (text + "\n").toByteArray()
             comPort!!.writeBytes(data, data.size)
-        } else log.error("Serial port is not open")
+        } else throw IllegalStateException("未开启端口：$${comPort?.systemPortName}")
     }
 
     fun readLine(timeoutMillis: Int = READ_TIMEOUT): String? {
