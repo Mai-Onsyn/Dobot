@@ -4,7 +4,7 @@
 
 或：
 - mvn package
-- java -jar ./target/Dobot-1.0-SNAPSHOT.jar
+- java -jar ./target/Dobot-1.0.jar
 
 **以下为控制台所有命令解释**
 
