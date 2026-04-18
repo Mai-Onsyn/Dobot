@@ -1,5 +1,6 @@
 package cius.mai_onsyn.dobot.api.pump
 
+import cius.mai_onsyn.log
 import com.fazecast.jSerialComm.SerialPort
 
 class PumpConnection(
@@ -9,17 +10,24 @@ class PumpConnection(
         val serials = SerialPort.getCommPorts()
         if (serials.isNotEmpty()) {
             serials.forEach { serialPort ->
+                if (!serialPort.descriptivePortName.contains("USB")) return@forEach
                 try {
                     val bool = super.connect(serialPort, baudRate)
                     if (bool) {
                         super.writeLine("cnm")
-                        Thread.sleep(500)
-                        val s = super.readLine(500)
+//                        super.writeLine("15")
+                        val s = super.readLine(1000)
+//                        log.debug("Connect Returned: $s")
                         if (s == "cnm again") {
                             return true
-                        } else return@forEach
+                        } else {
+                            super.disconnect()
+                            return@forEach
+                        }
                     }
-                } catch (e: Exception) {}
+                } catch (e: Exception) {
+                    log.error(e)
+                }
             }
         }
         return false

@@ -1,5 +1,7 @@
 package cius.mai_onsyn.dobot.api.pump
 
+import cius.mai_onsyn.log
+
 class PumpApi(
     private val connection: PumpConnection
 ) {
@@ -12,9 +14,15 @@ class PumpApi(
         return connection.readLine(1000)?: "ERROR"
     }
 
-    fun enable() = connection.writeLine("enable")
+    fun enable(): String {
+        connection.writeLine("enable")
+        return connection.readLine(1000)?: "ERROR"
+    }
 
-    fun disable() = connection.writeLine("disable")
+    fun disable(): String {
+        connection.writeLine("disable")
+        return connection.readLine(1000)?: "ERROR"
+    }
 
     fun stop() = connection.writeLine("stop")
 
@@ -24,9 +32,11 @@ class PumpApi(
 
     fun pump(ml: Int) {
         connection.writeLine("$ml")
-        val readLine = connection.readLine(300_000)
-        if (readLine != "The pumping is completed") {
-            throw IllegalStateException("Pumping failed")
+        Thread.ofVirtual().name("pump").start {
+            val readLine = connection.readLine(300_000)
+            if (readLine != "The pumping is completed") {
+                throw IllegalStateException("Pumping failed: $readLine")
+            } else log.info("已抽水 $ml ml")
         }
     }
 }

@@ -9,7 +9,7 @@ fun main() {
     val dot = DobotE6V4("192.168.5.1")
     dot.initialize()
 
-    val handApi = dot.handApi
+    val handApi = dot.hand
 
     var appExited = false
 

@@ -9,6 +9,7 @@ import java.util.*
 open class SerialConnection {
     companion object {
         const val BAUD_RATE = 9600
+        const val WRITE_TIMEOUT = 1000
         const val READ_TIMEOUT = 15000
     }
 
@@ -16,11 +17,17 @@ open class SerialConnection {
 
     fun connect(port: SerialPort, baudRate: Int): Boolean {
         comPort = port
-        comPort!!.baudRate = baudRate
-        comPort!!.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, READ_TIMEOUT, 0)
+        comPort!!.setComPortParameters(baudRate, 8, 1, 0)
+        comPort!!.setFlowControl(SerialPort.FLOW_CONTROL_DISABLED)
+        comPort!!.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING, READ_TIMEOUT, WRITE_TIMEOUT)
+        comPort!!.setComPortTimeouts(SerialPort.TIMEOUT_WRITE_BLOCKING, READ_TIMEOUT, WRITE_TIMEOUT)
 
         if (comPort!!.openPort()) {
+            comPort!!.setDTR()
+            comPort!!.setRTS()
+            Thread.sleep(2000)
             log.info("成功连接到端口: ${port.systemPortName}")
+            comPort!!.flushIOBuffers()
             return true
         } else {
             log.error("无法打开端口: ${port.systemPortName}")
@@ -28,25 +35,47 @@ open class SerialConnection {
         }
     }
 
-    fun writeLine(text: String?) {
+    fun writeLine(text: String) {
         if (comPort != null && comPort!!.isOpen) {
-            val data: ByteArray = (text + "\n").toByteArray()
+            val data: ByteArray = "$text\n".toByteArray()
+//            comPort!!.flushIOBuffers()
             comPort!!.writeBytes(data, data.size)
         } else throw IllegalStateException("未开启端口：$${comPort?.systemPortName}")
     }
 
+    private val readBuffer = ByteArray(64)
     fun readLine(timeoutMillis: Int = READ_TIMEOUT): String? {
         if (comPort == null || !comPort!!.isOpen) return null
 
-        setReadTimeout(timeoutMillis)
+//        setReadTimeout(timeoutMillis)
+        val lastReadTime = System.currentTimeMillis()
+        while (comPort!!.bytesAvailable() == 0) {
+            if (timeoutMillis > 0 && System.currentTimeMillis() - lastReadTime > timeoutMillis) {
+                log.error("读取超时")
+                return null
+            } else {
+                Thread.sleep(10)
+            }
+        }
         val scanner = Scanner(comPort!!.inputStream)
         try {
             if (scanner.hasNextLine()) {
-                return scanner.nextLine().trim()
+                val line = scanner.nextLine().trim()
+                log.debug("Serial received: $line")
+                return line
             }
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
+//        val sb = StringBuilder()
+//        while (true) {
+//            val read = comPort!!.readBytes(readBuffer, 0, readBuffer.size)
+//            if (read > 0) {
+//                sb.append(String(readBuffer, 0, read))
+//            } else break
+//        }
+
         return null
     }
 
@@ -69,7 +98,7 @@ open class SerialConnection {
 
     fun setReadTimeout(timeoutMillis: Int) {
         if (comPort != null) {
-            comPort!!.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING, timeoutMillis, 0)
+            comPort!!.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING, timeoutMillis, WRITE_TIMEOUT)
         }
     }
 

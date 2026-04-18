@@ -16,17 +16,30 @@ class ConsoleApp(
         "pump" to PumpCommand(pumpApi),
         "movj" to MovJCommand(api),
         "movjog" to MovJogCommand(api),
+        "record" to RecordCommand(api),
+        "bot" to BotCommand(api),
+        "resume" to ResumeCommand(api),
     )
 
     fun run() {
         val scanner = Scanner(System.`in`)
         log.info("DobotE6V4控制台已启动")
         log.info("输入 'exit' 退出")
+//        commands["bot"]?.execute(listOf("connect"))
+//        commands["bot"]?.execute(listOf("setup"))
         while (true) {
             if (scanner.hasNextLine()) {
                 val line = scanner.nextLine().split(" ")
+//                println(line.joinToString(" "))
 
-                if (line[0] == "exit") break
+                if (line[0] == "exit") {
+                    try {
+                        api.hand.disconnect()
+                        api.disconnect()
+                        pumpApi.disconnect()
+                    } catch (_: Exception) {}
+                    break
+                }
 
                 val command = commands[line[0]]
                 if (command == null) log.error("未知命令: ${line[0]}")

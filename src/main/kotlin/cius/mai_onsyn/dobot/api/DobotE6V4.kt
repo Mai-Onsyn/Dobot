@@ -11,7 +11,7 @@ class DobotE6V4(host: String) {
     val setting = RobotSettingApi(dashboard)
     val calGet = RobotCalGetApi(dashboard)
     val move = RobotMoveApi(dashboard)
-    val handApi = HandApi(RobotModbusApi(dashboard))
+    val hand = HandApi(RobotModbusApi(dashboard))
 
     fun connect() {
         dashboard.connect()
@@ -19,7 +19,7 @@ class DobotE6V4(host: String) {
     }
 
     fun disconnect() {
-        handApi.disconnect()
+        hand.disconnect()
         dashboard.close()
 //        sensor.close()
     }
@@ -36,7 +36,7 @@ class DobotE6V4(host: String) {
         control.emergencyStop(false)
         control.stop()
         control.enableRobot()
-        handApi.connect()
+        hand.connect()
 
         return true
     }

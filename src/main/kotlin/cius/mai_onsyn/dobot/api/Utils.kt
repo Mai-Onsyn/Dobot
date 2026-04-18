@@ -45,3 +45,5 @@ fun splitTopLevel(input: String): List<String> {
     }
     return result
 }
+
+fun Double.toFixedString(): String = String.format("%.0f", this)

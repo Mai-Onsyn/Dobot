@@ -1,5 +1,7 @@
 package cius.mai_onsyn.dobot.robot.arm
 
+import cius.mai_onsyn.dobot.api.toFixedString
+
 data class Joint(
     val j1: Double,
     val j2: Double,
@@ -16,7 +18,7 @@ data class Joint(
                 .removeSuffix("}")
                 .split(",")
                 .map { it.toDouble() }
-            if (values.size != 6) return null
+            if (values.size < 6) return null
             return Joint(
                 values[0], values[1], values[2],
                 values[3], values[4], values[5]
@@ -37,14 +39,15 @@ data class Joint(
 
         val DEFAULT = Joint(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
         val OUT_FACTORY = Joint(0.0, 45.0, -90.0, -45.0, 90.0, 0.0)
+        val OUT_FACTORY_FLIP = Joint(0.0, 45.0, -90.0, -45.0, -90.0, -90.0)
     }
 
     override fun toString(): String {
-        return "{$j1,$j2,$j3,$j4,$j5,$j6}"
+        return "{${j1.toFixedString()},${j2.toFixedString()},${j3.toFixedString()},${j4.toFixedString()},${j5.toFixedString()},${j6.toFixedString()}}"
     }
 
     override fun toStateString(): String {
-        return "joint={$j1,$j2,$j3,$j4,$j5,$j6}"
+        return "joint={${j1.toFixedString()},${j2.toFixedString()},${j3.toFixedString()},${j4.toFixedString()},${j5.toFixedString()},${j6.toFixedString()}}"
     }
 
     override fun equals(other: Any?): Boolean {

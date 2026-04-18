@@ -41,3 +41,7 @@ build/
 .stfolder/
 .idea/
 logs/
+
+test1.json
+merged.txt
+script.py

@@ -1,8 +1,27 @@
 # **DobotE6V4 Kotlin 控制代码**
 
-要运行操作控制台，执行src/main/kotlin/cius/mai_onsyn/dobot/Main.kt
+要运行操作控制台，执行src/main/kotlin/cius/mai_onsyn/dobot/Main.kt；
+
+或：
+- mvn package
+- java -jar ./target/Dobot-1.0-SNAPSHOT.jar
 
 **以下为控制台所有命令解释**
+
+## 基本配置(bot)
+| 命令 | 功能描述 | 示例 |
+| :---- | :---- | :---- |
+| **enable** | 机械臂使能。 | bot enable |
+| **disable** | 机械臂下使能。 | bot disable |
+| **connect** | TCP连接机械臂。 | bot connect |
+| **disconnect** | 与机械臂断开连接。 | bot disconnect |
+| **cls** | 清空报警。 | bot cls |
+| **handc** | Modbus连接手。 | bot handc |
+| **handd** | 断开手的Modbus连接。 | bot handd |
+| **setup** | 初始化机械臂，以便快速使用，执行包含清空报警，请求TCP控制，停止当前动作，Modbus连接手。 | bot setup |
+| **startdrag** | 开启机械臂关节可拖拽模式。 | bot startdrag |
+| **stopdrag** | 关闭机械臂关节可拖拽模式。 | bot stopdrag |
+
 
 ## **机械臂运动控制**
 
@@ -44,7 +63,7 @@
 * **用法**: hand \<数值\>  
 * 示例: hand 255 (四根手指全部展开)
 
-## **泵控制 (Pump Control)**
+## **泵控制(pump)**
 
 用于控制外接泵设备的操作。
 
@@ -59,16 +78,26 @@
 | **accel** | 设置加速度 | pump accel 500 |
 | **\<数字\>** | 抽水指定体积（ml） | pump 20 |
 
-## **轨迹记录与回放 (Trajectory)**
+## **轨迹记录与回放(record)**
 
 用于记录一系列关节序列并保存为文件，以便后续回放。
 
 * **record**: 记录机械臂当前的关节位置到内存序列中。  
 * **record clear**: 清空当前内存中已记录的所有点位。  
+* **record list**: 列出当前内存中记录的所有点。
 * **record save \<文件名\>**: 将内存中的序列保存为本地 JSON 文件。  
   * 示例: record save "pick\_and\_place"  
 * **record replay \<文件名\>**: 加载本地 JSON 轨迹文件并驱动机械臂执行。  
   * 示例: record replay "pick\_and\_place"
+* **record load \<文件名\>**: 加载本地JSON轨迹文件到内存中。
+  * 示例: record load "pick\_and\_place"
+
+## 机械臂恢复(resume)
+
+用于将机械臂和手移动到指定位置。
+
+- **resume init**: 机械臂竖直，手完全张开。
+- **resume pose**: 机械臂为包装纸箱上的姿势，手摆出国际有好手势。
 
 ## **程序控制**
 

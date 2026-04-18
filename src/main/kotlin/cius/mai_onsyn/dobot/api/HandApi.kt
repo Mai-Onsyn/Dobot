@@ -16,6 +16,7 @@ class HandApi(private val modbus: RobotModbusApi) {
     }
 
     fun connect(): Boolean {
+        disconnectAll(modbus)
         val response = modbus.modbusCreate("192.168.5.1", 60000, slaveId, true)
         if (response.isSuccess()) {
             modbusIndex = response.refValues.first().value as Int

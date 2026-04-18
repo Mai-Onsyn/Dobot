@@ -9,7 +9,7 @@ fun main() {
     val dot = DobotE6V4("192.168.5.1")
     if (!dot.initialize()) return
 
-    val hand = dot.handApi
+    val hand = dot.hand
 
     var percentage = 1.0
     var joint = Joint.DEFAULT

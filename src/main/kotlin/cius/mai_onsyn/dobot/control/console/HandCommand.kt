@@ -21,11 +21,11 @@ class FingerCommand(
                 args[5].toInt(),
                 args[6].toInt()
             )
-            api.handApi.setPose(handJoint)
+            api.hand.setPose(handJoint)
         } else {
             val finger = args[0].toInt()
 
-            val joints = api.handApi.getPose()?.toIntArray() ?: throw RobotException("获取姿态失败")
+            val joints = api.hand.getPose()?.toIntArray() ?: throw RobotException("获取姿态失败")
             if (finger == 1) {
                 val type = args[1]
                 val value = args[2].toInt()
@@ -38,7 +38,7 @@ class FingerCommand(
                 joints[finger] = args[1].toInt()
             }
 
-            api.handApi.setPose(HandJoint.byIntArray(joints))
+            api.hand.setPose(HandJoint.byIntArray(joints))
         }
     }
 }
@@ -51,12 +51,12 @@ class HandCommand(
 
     override fun execute(args: List<String>) {
         if (args.size == 1) {
-            val joints = api.handApi.getPose()?.toIntArray() ?: throw RobotException("获取姿态失败")
+            val joints = api.hand.getPose()?.toIntArray() ?: throw RobotException("获取姿态失败")
             joints[2] = args[0].toInt()
             joints[3] = args[0].toInt()
             joints[4] = args[0].toInt()
             joints[5] = args[0].toInt()
-            api.handApi.setPose(HandJoint.byIntArray(joints))
+            api.hand.setPose(HandJoint.byIntArray(joints))
         } else throw IllegalArgumentException("参数错误")
     }
 }

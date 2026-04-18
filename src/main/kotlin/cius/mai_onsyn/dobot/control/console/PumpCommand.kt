@@ -14,13 +14,15 @@ class PumpCommand(
             "status" -> log.info(api.status())
             "enable" -> api.enable()
             "disable" -> api.disable()
-            "connect" -> log.info(if (api.connect()) "success" else "failed")
+            "connect" -> log.info("串口初始化：${if (api.connect()) "success" else "failed"}")
+            "close" -> api.disconnect()
             "stop" -> api.stop()
             "speed" -> api.setSpeed(args[1].toInt())
             "accel" -> api.setAccel(args[1].toInt())
             else -> {
                 val i = args[0].toIntOrNull()
                 if (i != null) {
+                    log.info("正在抽水: $i ml")
                     api.pump(i)
                 } else log.error("Unknown parameter: ${args[0]}")
             }

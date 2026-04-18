@@ -1,15 +1,20 @@
 package cius.mai_onsyn.dobot.trajectory
 
+import cius.mai_onsyn.dobot.api.HandApi
 import cius.mai_onsyn.dobot.api.RobotCalGetApi
+import cius.mai_onsyn.dobot.api.RobotModbusApi
+import cius.mai_onsyn.dobot.api.socket.RobotConnection
 import com.github.kwhat.jnativehook.GlobalScreen
 import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent
 import com.github.kwhat.jnativehook.keyboard.NativeKeyListener
+import org.jetbrains.annotations.TestOnly
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.logging.Level
 import java.util.logging.Logger
 import kotlin.concurrent.thread
 import kotlin.system.exitProcess
 
+@Deprecated("Test only")
 class TrajectoryManager(
     private val savePath: String,
     private val api: RobotCalGetApi, // 你提供的 API 接口
@@ -55,7 +60,7 @@ class TrajectoryManager(
             workerThread = thread(start = true, isDaemon = true) {
                 try {
                     while (isRecording.get()) {
-                        currentTrajectory?.record(api)
+//                        currentTrajectory?.record(api, HandApi(RobotModbusApi(RobotConnection("", 0))))
 
                         Thread.sleep(samplingIntervalMs)
                     }
