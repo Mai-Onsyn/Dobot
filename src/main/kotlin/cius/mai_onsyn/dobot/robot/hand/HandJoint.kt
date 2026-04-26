@@ -17,6 +17,19 @@ data class HandJoint(
         return intArrayOf(thumbPitch, thumbYaw, finger1, finger2, finger3, finger4, thumbRoll)
     }
 
+    override fun equals(other: Any?): Boolean {
+        if (other is HandJoint) {
+            return other.thumbPitch == thumbPitch &&
+                    other.thumbYaw == thumbYaw &&
+                    other.finger1 == finger1 &&
+                    other.finger2 == finger2 &&
+                    other.finger3 == finger3 &&
+                    other.finger4 == finger4 &&
+                    other.thumbRoll == thumbRoll
+        }
+        return false
+    }
+
     companion object {
         val OPEN = HandJoint(255, 255, 255, 255, 255, 255, 255)
         val FRIENDLY_POSE = HandJoint(60, 128, 40, 255, 40, 40, 255)

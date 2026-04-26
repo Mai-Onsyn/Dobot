@@ -1,5 +1,6 @@
-package cius.mai_onsyn.dobot.api
+package cius.mai_onsyn.dobot.api.robot
 
+import cius.mai_onsyn.dobot.api.appendUserTool
 import cius.mai_onsyn.dobot.robot.arm.Coordinate
 import cius.mai_onsyn.dobot.robot.arm.Joint
 import cius.mai_onsyn.dobot.robot.arm.RobotState
@@ -8,6 +9,24 @@ import cius.mai_onsyn.dobot.api.socket.RobotConnection
 import cius.mai_onsyn.dobot.api.socket.RobotResponse
 
 class RobotMoveApi(private val connection: RobotConnection) {
+    private var currentCmdID = -1
+    init {
+        Thread.ofVirtual().name("MoveCommandAsker").start {
+            while (true) {
+                try {
+                    if (connection.isConnected()) getCurrentCommandID()?.let { id ->
+                        if (id != currentCmdID) {
+                            currentCmdID = id
+                        }
+                    }
+                } catch (e: Exception) {
+//                    e.printStackTrace()
+                } finally {
+                    Thread.sleep(200)
+                }
+            }
+        }
+    }
 
     @JvmOverloads
     fun movJ(
@@ -16,6 +35,7 @@ class RobotMoveApi(private val connection: RobotConnection) {
         a: Int = -1,
         v: Int = -1,
         cp: Int = -1,
+        block: Boolean = false
     ): RobotResponse {
         val sb = StringBuilder("MovJ(")
             .append(state.toStateString())
@@ -24,7 +44,14 @@ class RobotMoveApi(private val connection: RobotConnection) {
             .appendValue(v, "v", 1..100)
             .appendValue(cp, "cp", 0..100)
             .append(")")
-        return connection.send(Message.of(sb.toString()))
+        val response = connection.send(Message.of(sb.toString()))
+        while (
+            response.refValues.first().value as Int > currentCmdID &&
+            block
+        ) {
+            Thread.sleep(200)
+        }
+        return response
     }
 
     @JvmOverloads
@@ -171,5 +198,14 @@ class RobotMoveApi(private val connection: RobotConnection) {
             .append("=")
             .append(value.coerceIn(range?: Int.MIN_VALUE..Int.MAX_VALUE))
         return this
+    }
+
+    private fun getCurrentCommandID(): Int? {
+        val response = connection.send(Message.of("GetCurrentCommandID()"))
+        return try {
+            response.refValues.first().value as Int
+        } catch (_: NoSuchElementException) {
+            null
+        }
     }
 }

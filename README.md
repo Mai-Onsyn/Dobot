@@ -44,6 +44,7 @@
 ## **手控制**
 
 用于控制机械臂末端搭载的灵巧手。范围均为[0,255]，255为完全展开。
+**若在数值前添加+/-，则为增量运动：在当前值上增加或减少该数值**
 
 ### **finger \- 单指/精确控制**
 
@@ -54,7 +55,7 @@
 * **大拇指特殊控制**: finger 1 \<pitch|yaw|roll\> \<数值\>  
   * 示例: finger 1 pitch 50  
 * **指定关节修改**: finger \<索引\> \<数值\>  
-  * 示例: finger 3 150
+  * 示例: finger 3 -150
 
 ### **hand \- 四指同步控制**
 
@@ -62,6 +63,7 @@
 
 * **用法**: hand \<数值\>  
 * 示例: hand 255 (四根手指全部展开)
+* 示例: hand -20 (四根手指收缩20)
 
 ## **泵控制(pump)**
 
@@ -91,6 +93,11 @@
   * 示例: record replay "pick\_and\_place"
 * **record load \<文件名\>**: 加载本地JSON轨迹文件到内存中。
   * 示例: record load "pick\_and\_place"
+* **record move \<index\>**: 移动到内存中的点列表里的指定点。
+  * 示例: record move 1
+* **record rml \<index\>**: 删除内存中的指定点，不指定则删除最后一个点
+  * 示例: record rml 1
+  * 示例: record rml
 
 ## 机械臂恢复(resume)
 

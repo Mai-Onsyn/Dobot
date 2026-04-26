@@ -1,6 +1,6 @@
 package cius.mai_onsyn.dobot.control
 
-//import cius.mai_onsyn.dobot.api.DobotE6V4
+//import cius.mai_onsyn.dobot.api.robot.DobotE6V4
 //import javafx.application.Application
 //import javafx.event.EventHandler
 //import javafx.scene.Scene

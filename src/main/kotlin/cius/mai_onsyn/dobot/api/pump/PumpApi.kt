@@ -35,7 +35,8 @@ class PumpApi(
         Thread.ofVirtual().name("pump").start {
             val readLine = connection.readLine(300_000)
             if (readLine != "The pumping is completed") {
-                throw IllegalStateException("Pumping failed: $readLine")
+//                throw IllegalStateException()
+                log.error("Pumping failed: $readLine")
             } else log.info("已抽水 $ml ml")
         }
     }

@@ -1,6 +1,6 @@
 package warp
 
-import cius.mai_onsyn.dobot.api.DobotE6V4
+import cius.mai_onsyn.dobot.api.robot.DobotE6V4
 import cius.mai_onsyn.log
 import java.util.Scanner
 import kotlin.concurrent.thread

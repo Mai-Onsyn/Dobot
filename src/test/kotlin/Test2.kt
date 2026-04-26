@@ -1,3 +1,9 @@
+/**
+ * AI辅助生成
+ * DeepSeek-R1
+ * 电脑客户端访问
+ * 2026年4月3日
+ */
 import java.io.DataInputStream
 import java.net.Socket
 import java.nio.ByteBuffer

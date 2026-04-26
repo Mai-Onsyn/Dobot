@@ -1,6 +1,6 @@
-import cius.mai_onsyn.dobot.api.DobotE6V4;
-import cius.mai_onsyn.dobot.api.RobotCalGetApi;
-import cius.mai_onsyn.dobot.api.RobotControlApi;
+import cius.mai_onsyn.dobot.api.robot.DobotE6V4;
+import cius.mai_onsyn.dobot.api.robot.RobotCalGetApi;
+import cius.mai_onsyn.dobot.api.robot.RobotControlApi;
 import cius.mai_onsyn.dobot.api.socket.ParamValue;
 import cius.mai_onsyn.dobot.api.socket.RobotResponse;
 

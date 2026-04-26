@@ -1,3 +1,10 @@
+/**
+ * AI辅助生成
+ * DeepSeek-R1
+ * 电脑客户端访问
+ * 2026年4月2日
+ */
+
 import java.io.PrintWriter
 import java.net.Socket
 import java.util.concurrent.TimeUnit

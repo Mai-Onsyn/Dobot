@@ -1,8 +1,8 @@
 package cius.mai_onsyn.dobot.trajectory
 
-import cius.mai_onsyn.dobot.api.HandApi
-import cius.mai_onsyn.dobot.api.RobotCalGetApi
-import cius.mai_onsyn.dobot.api.RobotMoveApi
+import cius.mai_onsyn.dobot.api.robot.HandApi
+import cius.mai_onsyn.dobot.api.robot.RobotCalGetApi
+import cius.mai_onsyn.dobot.api.robot.RobotMoveApi
 import cius.mai_onsyn.dobot.robot.arm.Joint
 import cius.mai_onsyn.dobot.robot.hand.HandJoint
 import cius.mai_onsyn.log
@@ -60,11 +60,14 @@ class JointTrajectory() : Trajectory, ArrayList<Pair<Joint, HandJoint>>() {
     }
 
     override fun replay(api: RobotMoveApi, hand: HandApi) {
+        var lastHand: HandJoint? = null
         forEach { (joint, pose) ->
-            api.movJ(joint)
-            Thread.sleep(15)
+            api.movJ(joint, block = true)
             hand.setPose(pose)
-            Thread.sleep(15)
+            if (lastHand != null && lastHand != pose) {
+                Thread.sleep(2000)
+            }
+            lastHand = pose
         }
     }
 

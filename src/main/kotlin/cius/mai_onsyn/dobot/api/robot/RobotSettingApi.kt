@@ -1,4 +1,4 @@
-package cius.mai_onsyn.dobot.api
+package cius.mai_onsyn.dobot.api.robot
 
 import cius.mai_onsyn.dobot.robot.arm.Coordinate
 import cius.mai_onsyn.dobot.api.socket.Message

@@ -1,4 +1,4 @@
-package cius.mai_onsyn.dobot.api
+package cius.mai_onsyn.dobot.api.robot
 
 import cius.mai_onsyn.dobot.api.socket.RobotConnection
 import org.jetbrains.annotations.TestOnly

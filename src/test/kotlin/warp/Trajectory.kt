@@ -1,9 +1,8 @@
 package warp
 
-import cius.mai_onsyn.dobot.api.DobotE6V4
+import cius.mai_onsyn.dobot.api.robot.DobotE6V4
 import cius.mai_onsyn.dobot.robot.arm.Joint
 import cius.mai_onsyn.dobot.trajectory.JointTrajectory
-import cius.mai_onsyn.dobot.trajectory.TrajectoryManager
 
 fun main() {
     replay()

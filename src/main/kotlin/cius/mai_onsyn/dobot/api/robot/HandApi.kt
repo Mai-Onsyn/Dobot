@@ -1,4 +1,4 @@
-package cius.mai_onsyn.dobot.api
+package cius.mai_onsyn.dobot.api.robot
 
 import cius.mai_onsyn.dobot.robot.hand.HandJoint
 import cius.mai_onsyn.dobot.robot.hand.HandFinger
@@ -63,6 +63,12 @@ class HandApi(private val modbus: RobotModbusApi) {
         return r1.isSuccess() && r2.isSuccess()
     }
 
+    /**
+     * AI辅助生成
+     * DeepSeek-R1
+     * 电脑客户端访问
+     * 2026年4月6日
+     */
     private fun universalHandJointGetter(address: Int): HandJoint? {
         val r1 = modbus.getInRegs(modbusIndex, address, 4)
         Thread.sleep(15)

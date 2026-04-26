@@ -1,6 +1,6 @@
 package cius.mai_onsyn.dobot.control.console
 
-import cius.mai_onsyn.dobot.api.DobotE6V4
+import cius.mai_onsyn.dobot.api.robot.DobotE6V4
 import cius.mai_onsyn.dobot.api.socket.RobotException
 import cius.mai_onsyn.dobot.robot.hand.HandJoint
 
@@ -24,18 +24,23 @@ class FingerCommand(
             api.hand.setPose(handJoint)
         } else {
             val finger = args[0].toInt()
-
             val joints = api.hand.getPose()?.toIntArray() ?: throw RobotException("获取姿态失败")
-            if (finger == 1) {
-                val type = args[1]
-                val value = args[2].toInt()
-                when (type) {
-                    "pitch" -> joints[0] = value
-                    "yaw" -> joints[1] = value
-                    "roll" -> joints[6] = value
-                }
+
+            val (targetIdx, rawValue) = if (finger == 1) {
+                val typeMap = mapOf("p" to 0, "y" to 1, "r" to 6)
+                val idx = typeMap[args[1]] ?: throw IllegalArgumentException("未知类型: ${args[1]}")
+                idx to args[2]
             } else {
-                joints[finger] = args[1].toInt()
+                finger to args[1]
+            }
+
+            val op = rawValue[0]
+            val value = if (op in "+-") rawValue.substring(1).toInt() else rawValue.toInt()
+
+            when (op) {
+                '+' -> joints[targetIdx] += value
+                '-' -> joints[targetIdx] -= value
+                else -> joints[targetIdx] = value
             }
 
             api.hand.setPose(HandJoint.byIntArray(joints))
@@ -52,10 +57,14 @@ class HandCommand(
     override fun execute(args: List<String>) {
         if (args.size == 1) {
             val joints = api.hand.getPose()?.toIntArray() ?: throw RobotException("获取姿态失败")
-            joints[2] = args[0].toInt()
-            joints[3] = args[0].toInt()
-            joints[4] = args[0].toInt()
-            joints[5] = args[0].toInt()
+            val input = args[0]
+            for (finger in 2..5) {
+                when (input[0]) {
+                    '+' -> joints[finger] += input.substring(1).toInt()
+                    '-' -> joints[finger] -= input.substring(1).toInt()
+                    else -> joints[finger] = input.toInt()
+                }
+            }
             api.hand.setPose(HandJoint.byIntArray(joints))
         } else throw IllegalArgumentException("参数错误")
     }

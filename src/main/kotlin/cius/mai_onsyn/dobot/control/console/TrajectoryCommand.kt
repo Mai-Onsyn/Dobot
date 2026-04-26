@@ -1,6 +1,6 @@
 package cius.mai_onsyn.dobot.control.console
 
-import cius.mai_onsyn.dobot.api.DobotE6V4
+import cius.mai_onsyn.dobot.api.robot.DobotE6V4
 import cius.mai_onsyn.dobot.trajectory.JointTrajectory
 import cius.mai_onsyn.log
 import java.io.File
@@ -51,6 +51,20 @@ class RecordCommand(
                 log.info("加载轨迹文件: $filename.json")
                 trajectory.addAll(JointTrajectory.load(pathname))
                 log.info("已从${pathname}加载${trajectory.size}个点记录")
+            }
+        }
+        else if (args.size == 2 && args[0].lowercase() == "move") {
+            val index = args[1].toIntOrNull()
+            if (index != null && index in 0 until trajectory.size) {
+                val point = trajectory[index]
+                api.move.movJ(point.first)
+                api.hand.setPose(point.second)
+            }
+        }
+        else if (args[0].lowercase() == "rml") {
+            if (args.size == 1) trajectory.removeLast()
+            else if (args.size == 2) {
+                args[1].toIntOrNull()?.let { trajectory.removeAt(it) }
             }
         }
         else log.error("参数错误")

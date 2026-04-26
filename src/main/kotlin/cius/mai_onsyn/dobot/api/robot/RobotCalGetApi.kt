@@ -1,5 +1,6 @@
-package cius.mai_onsyn.dobot.api
+package cius.mai_onsyn.dobot.api.robot
 
+import cius.mai_onsyn.dobot.api.appendUserTool
 import cius.mai_onsyn.dobot.robot.arm.Coordinate
 import cius.mai_onsyn.dobot.robot.arm.Joint
 import cius.mai_onsyn.dobot.robot.arm.RobotMode

@@ -45,3 +45,4 @@ logs/
 test1.json
 merged.txt
 script.py
+*.json
