@@ -1,0 +1,12 @@
+{
+	"ui":{
+		"theme":{
+			"is_dark_mode":true
+		}
+	},
+	"core":{
+		"arm":{
+			"step":1.4499999
+		}
+	}
+}

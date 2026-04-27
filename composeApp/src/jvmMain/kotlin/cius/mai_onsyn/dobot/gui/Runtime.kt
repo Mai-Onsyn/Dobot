@@ -5,4 +5,4 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import cius.mai_onsyn.dobot.gui.content.Page
 
-var currentPage by mutableStateOf(Page.WELCOME)
+var currentPage by mutableStateOf(Page.ADJUST)

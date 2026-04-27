@@ -1,4 +1,4 @@
-package cius.mai_onsyn.dobot.robot.arm
+package cius.mai_onsyn.dobot.core.robot.arm
 
 object AxisID {
     const val J1P = "J1+"

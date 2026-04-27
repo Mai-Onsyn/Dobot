@@ -20,9 +20,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cius.mai_onsyn.dobot.gui.ROUND_CORNER_SHAPE
 import cius.mai_onsyn.dobot.gui.content.Page
 import cius.mai_onsyn.dobot.gui.currentPage
 import cius.mai_onsyn.dobot.gui.util.appShadow
@@ -52,12 +54,14 @@ fun GuidColumn(
         Spacer(modifier = Modifier.height(16.dp))
 
         Page.entries.forEach {
+            Spacer(modifier = Modifier.height(2.dp))
             Button(
                 onClick = { currentPage = it },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Transparent,
+                    containerColor = if (currentPage != it) theme.surfaceContainer else theme.surfaceContainerHighest,
                     contentColor = theme.surfaceVariant
                 ),
+                shape = ROUND_CORNER_SHAPE,
                 modifier = Modifier.fillMaxWidth().height(50.dp)
             ) {
                 Text(

@@ -1,4 +1,4 @@
-package cius.mai_onsyn.dobot.gui.content.debug
+package cius.mai_onsyn.dobot.gui.content.settings
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,12 +10,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 
 @Composable
-fun AdjustPage() {
+fun SettingsPage() {
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
         Text(
-            text = "Adjust Page",
+            text = "Settings Page",
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.align(Alignment.Center)

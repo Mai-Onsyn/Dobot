@@ -21,6 +21,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
 
+            implementation("org.jetbrains.kotlin:kotlin-reflect:2.1.21")
             implementation("com.alibaba.fastjson2:fastjson2:2.0.52")
             implementation("org.apache.logging.log4j:log4j-api:2.25.3")
             implementation("org.apache.logging.log4j:log4j-core:2.25.3")
@@ -47,5 +48,12 @@ compose.desktop {
             packageName = "cius.mai_onsyn.dobot"
             packageVersion = "1.0.0"
         }
+
+        jvmArgs += listOf(
+            "-Duser.dir=${rootProject.projectDir.absolutePath}",
+            "-Dfile.encoding=UTF-8",
+            "-Dsun.stdout.encoding=UTF-8",
+            "-Dsun.stderr.encoding=UTF-8",
+        )
     }
 }
