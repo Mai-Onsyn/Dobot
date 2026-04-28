@@ -21,7 +21,7 @@ fun AdjustPage() {
     ) {
         Box(
             modifier = Modifier
-                .weight(1f)
+                .weight(0.7f)
                 .fillMaxSize()
         ) {
 //            Text(

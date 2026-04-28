@@ -1,5 +1,6 @@
 package cius.mai_onsyn.dobot.gui.content.movement
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -28,10 +29,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import cius.mai_onsyn.dobot.core.UIInterface.api
 import cius.mai_onsyn.dobot.gui.util.Config.armStep
 import cius.mai_onsyn.dobot.gui.util.universal_module.LabeledItem
+import cius.mai_onsyn.dobot.gui.util.universal_module.PointSnapSlider
 import cius.mai_onsyn.dobot.gui.util.universal_module.SliderWithInput
 import cius.mai_onsyn.dobot.robot.arm.Joint
 
@@ -71,6 +75,7 @@ fun ArmJointControlPanel(
                         .height(40.dp)
                         .padding(start = 16.dp),
                     labelWidth = 20.dp,
+                    fontSize = 16.sp,
                     textColor = colorScheme.onBackground
                 ) {
                     Row(
@@ -130,21 +135,22 @@ fun ArmJointControlPanel(
                 labelWidth = 40.dp,
                 textColor = colorScheme.onBackground
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .fillMaxSize()
-                ) {
-                    SliderWithInput(
-                        steps = 198,
-                        value = armStep,
-                        onValueChange = { armStep = it },
-                        range = 0.05f..10f,
-                        modifier = Modifier
-                            .fillMaxSize()
-                    )
-                }
+                SliderWithInput(
+                    steps = 198,
+                    value = armStep,
+                    onValueChange = { armStep = it },
+                    range = 0.05f..10f,
+                    modifier = Modifier.fillMaxSize()
+                )
             }
+
+            Spacer(Modifier.height(20.dp))
+
+            PointSnapSlider(
+                points = listOf(0f, 2f, 4f),
+                modifier = Modifier.height(100.dp).fillMaxWidth().background(Color.Yellow),
+                onChanged = { println(it) }
+            )
         }
     }
 }

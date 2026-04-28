@@ -3,5 +3,10 @@
 		"theme":{
 			"is_dark_mode":false
 		}
+	},
+	"core":{
+		"arm":{
+			"step":1.0
+		}
 	}
 }

@@ -21,10 +21,6 @@ import androidx.compose.ui.unit.sp
 import cius.mai_onsyn.dobot.gui.ROUND_CORNER_SHAPE
 import cius.mai_onsyn.dobot.gui.util.interaction
 
-private val trackHeight = 4.dp
-private val thumbSize = 20.dp
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SliderWithInput(
     modifier: Modifier = Modifier,
@@ -35,59 +31,33 @@ fun SliderWithInput(
 ) {
     val colorScheme = MaterialTheme.colorScheme
     var text by remember { mutableStateOf(value.toString()) }
+
     LaunchedEffect(value) {
-        text = "%.2f".format(value)
+        val formatted = "%.2f".format(value)
+        if (text != formatted) {
+            text = formatted
+        }
     }
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
     ) {
-        Slider(
+        ThickSlider(
             value = value,
-            onValueChange = {
-                onValueChange(it)
-            },
-            valueRange = range,
+            onValueChange = onValueChange,
+            range = range,
             steps = steps,
-            modifier = Modifier
-                .weight(1f),
-            track = { sliderPositions ->
-                Box(
-                    Modifier
-                        .fillMaxWidth()
-                        .height(trackHeight)
-                        .clip(ROUND_CORNER_SHAPE)
-                        .background(colorScheme.outline.copy(alpha = 0.3f))
-                ) {
-                    Box(
-                        Modifier
-                            .fillMaxWidth(sliderPositions.coercedValueAsFraction)
-                            .height(trackHeight)
-                            .background(colorScheme.primary)
-                    )
-                }
-            },
-            thumb = {
-                Box(
-                    Modifier
-                        .size(thumbSize)
-                        .background(
-                            MaterialTheme.colorScheme.primary,
-                            shape = CircleShape
-                        )
-                )
-            }
+            modifier = Modifier.weight(1f)
         )
+
         Spacer(modifier = Modifier.width(8.dp))
 
         BasicTextField(
             value = text,
             onValueChange = { input ->
                 text = input
-
-                val parsed = input.toFloatOrNull()
-                if (parsed != null) {
+                input.toFloatOrNull()?.let { parsed ->
                     val clamped = parsed.coerceIn(range.start, range.endInclusive)
                     onValueChange(clamped)
                 }
@@ -100,18 +70,15 @@ fun SliderWithInput(
             singleLine = true,
             modifier = Modifier
                 .width(50.dp)
-                .fillMaxHeight()
-                .padding(0.dp),
+                .height(24.dp),
             decorationBox = { innerTextField ->
                 Box(
                     contentAlignment = Alignment.CenterStart,
-                    modifier = Modifier
-                        .fillMaxSize()
+                    modifier = Modifier.fillMaxSize()
                 ) {
                     innerTextField()
                 }
             }
         )
     }
-
 }

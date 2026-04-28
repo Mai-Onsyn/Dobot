@@ -73,10 +73,7 @@ fun TopBar(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxHeight()
         ) {
-            ThemeSwitch(
-                isDark = isDarkMode,
-                onToggle = { isDarkMode = it }
-            )
+
         }
 
     }

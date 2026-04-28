@@ -5,16 +5,19 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
 @Composable
 fun ThemeSwitch(
+    modifier: Modifier = Modifier,
     isDark: Boolean,
     onToggle: (Boolean) -> Unit
 ) {
     val scheme = MaterialTheme.colorScheme
 
     Switch(
+        modifier = modifier,
         checked = isDark,
         onCheckedChange = onToggle,
 
