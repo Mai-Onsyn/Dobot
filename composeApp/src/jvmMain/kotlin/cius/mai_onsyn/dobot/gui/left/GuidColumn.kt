@@ -58,7 +58,7 @@ fun GuidColumn(
             Button(
                 onClick = { currentPage = it },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = if (currentPage != it) theme.surfaceContainer else theme.surfaceContainerHighest,
+                    containerColor = if (currentPage != it) theme.surfaceContainer else theme.secondaryContainer,
                     contentColor = theme.surfaceVariant
                 ),
                 shape = ROUND_CORNER_SHAPE,

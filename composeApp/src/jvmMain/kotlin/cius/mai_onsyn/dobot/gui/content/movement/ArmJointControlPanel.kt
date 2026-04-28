@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cius.mai_onsyn.dobot.core.UIInterface.api
 import cius.mai_onsyn.dobot.gui.util.Config.armStep
+import cius.mai_onsyn.dobot.gui.util.universal_module.CardBase
 import cius.mai_onsyn.dobot.gui.util.universal_module.LabeledItem
 import cius.mai_onsyn.dobot.gui.util.universal_module.PointSnapSlider
 import cius.mai_onsyn.dobot.gui.util.universal_module.SliderWithInput
@@ -44,7 +45,7 @@ fun ArmJointControlPanel(
     modifier: Modifier = Modifier
 ) {
     val colorScheme = MaterialTheme.colorScheme
-    Box(
+    CardBase(
         modifier = modifier
             .fillMaxSize()
     ) {
@@ -87,8 +88,15 @@ fun ArmJointControlPanel(
                         Button(
                             contentPadding = PaddingValues.Zero,
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = colorScheme.background,
+                                containerColor = Color.Transparent,
                                 contentColor = colorScheme.onBackground
+                            ),
+                            elevation = ButtonDefaults.buttonElevation(
+                                defaultElevation = 0.dp,
+                                pressedElevation = 0.dp,
+                                focusedElevation = 0.dp,
+                                hoveredElevation = 0.dp,
+                                disabledElevation = 0.dp
                             ),
                             onClick = { jointValues[index] -= armStep },
                             modifier = Modifier.size(35.dp)
@@ -98,8 +106,15 @@ fun ArmJointControlPanel(
                         Button(
                             contentPadding = PaddingValues.Zero,
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = colorScheme.background,
+                                containerColor = Color.Transparent,
                                 contentColor = colorScheme.onBackground
+                            ),
+                            elevation = ButtonDefaults.buttonElevation(
+                                defaultElevation = 0.dp,
+                                pressedElevation = 0.dp,
+                                focusedElevation = 0.dp,
+                                hoveredElevation = 0.dp,
+                                disabledElevation = 0.dp
                             ),
                             onClick = { jointValues[index] += armStep },
                             modifier = Modifier.size(35.dp)
@@ -130,27 +145,29 @@ fun ArmJointControlPanel(
             LabeledItem(
                 label = "步进",
                 modifier = Modifier
-                    .height(40.dp)
+                    .height(60.dp)
                     .padding(start = 16.dp),
                 labelWidth = 40.dp,
                 textColor = colorScheme.onBackground
             ) {
-                SliderWithInput(
-                    steps = 198,
+//                SliderWithInput(
+//                    steps = 198,
+//                    value = armStep,
+//                    onValueChange = { armStep = it },
+//                    range = 0.05f..10f,
+//                    modifier = Modifier.fillMaxSize()
+//                )
+
+                PointSnapSlider(
+                    points = listOf(0.01f, 0.05f, 0.1f, 0.5f, 1f, 5f, 10f, 50f),
                     value = armStep,
-                    onValueChange = { armStep = it },
-                    range = 0.05f..10f,
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier.fillMaxSize(),
+                    onChanged = { armStep = it }
                 )
             }
 
             Spacer(Modifier.height(20.dp))
 
-            PointSnapSlider(
-                points = listOf(0f, 2f, 4f),
-                modifier = Modifier.height(100.dp).fillMaxWidth().background(Color.Yellow),
-                onChanged = { println(it) }
-            )
         }
     }
 }
