@@ -37,28 +37,20 @@ fun ExperiencePage() {
             Row(
                 modifier = Modifier.fillMaxHeight().weight(0.7f)
             ) {
-                CardBase(
-                    modifier = Modifier.fillMaxHeight().weight(0.5f)
-                ) { ConnectModule(modifier = Modifier.fillMaxSize()) }
+                ConnectModule(modifier = Modifier.fillMaxHeight().weight(0.5f))
 
                 Spacer(modifier = Modifier.width(GLOBAL_PADDING))
 
-                CardBase(
-                    modifier = Modifier.fillMaxHeight().weight(0.225f)
-                ) { SysStateModule(modifier = Modifier.fillMaxSize()) }
+                SysStateModule(modifier = Modifier.fillMaxHeight().weight(0.225f))
 
                 Spacer(modifier = Modifier.width(GLOBAL_PADDING))
 
-                CardBase(
-                    modifier = Modifier.fillMaxHeight().weight(0.3f)
-                ) { SafeStateModule(modifier = Modifier.fillMaxSize()) }
+                SafeStateModule(modifier = Modifier.fillMaxHeight().weight(0.3f))
             }
 
             Spacer(modifier = Modifier.width(GLOBAL_PADDING))
 
-            CardBase(
-                modifier = Modifier.fillMaxHeight().weight(0.3f)
-            ) { InfoModule(modifier = Modifier.fillMaxSize()) }
+            InfoModule(modifier = Modifier.fillMaxHeight().weight(0.3f))
         }
 
         Spacer(modifier = Modifier.height(GLOBAL_PADDING))
@@ -68,22 +60,16 @@ fun ExperiencePage() {
             Column(
                 modifier = Modifier.fillMaxHeight().weight(0.7f)
             ) {
-                CardBase(
-                    modifier = Modifier.fillMaxHeight().weight(0.3f)
-                ) { ControlModule(modifier = Modifier.fillMaxSize()) }
+                ControlModule(modifier = Modifier.fillMaxHeight().weight(0.3f))
 
                 Spacer(modifier = Modifier.height(GLOBAL_PADDING))
 
-                CardBase(
-                    modifier = Modifier.fillMaxHeight().weight(1f)
-                ) { LogModule(modifier = Modifier.fillMaxSize()) }
+                LogModule(modifier = Modifier.fillMaxHeight().weight(1f))
             }
 
             Spacer(modifier = Modifier.width(GLOBAL_PADDING))
 
-            CardBase(
-                modifier = Modifier.fillMaxHeight().weight(0.3f)
-            ) { FlowModule(modifier = Modifier.fillMaxSize()) }
+            FlowModule(modifier = Modifier.fillMaxHeight().weight(0.3f))
         }
     }
 }
