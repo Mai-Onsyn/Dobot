@@ -31,13 +31,15 @@ import cius.mai_onsyn.dobot.gui.left.GuidColumn
 import cius.mai_onsyn.dobot.gui.top.TopBar
 import cius.mai_onsyn.dobot.gui.util.AnimatedMaterialTheme
 import cius.mai_onsyn.dobot.gui.util.Config.isDarkMode
+import cius.mai_onsyn.dobot.gui.util.botDarkTheme
+import cius.mai_onsyn.dobot.gui.util.botLightTheme
 import cius.mai_onsyn.dobot.gui.util.interaction
 
 @Composable
 @Preview
 fun App() {
     AnimatedMaterialTheme(
-        colorScheme = if (isDarkMode) darkColorScheme() else lightColorScheme()
+        colorScheme = if (isDarkMode) botDarkTheme else botLightTheme
     ) {
         val focusManager = LocalFocusManager.current
         Row(
