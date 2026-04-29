@@ -62,7 +62,7 @@ fun App() {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(16.dp)
+                        .padding(GLOBAL_PADDING)
                 ) {
                     AnimatedContent(
                         targetState = currentPage,

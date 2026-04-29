@@ -33,6 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cius.mai_onsyn.dobot.core.UIInterface.api
+import cius.mai_onsyn.dobot.gui.GLOBAL_PADDING
 import cius.mai_onsyn.dobot.gui.util.Config.armStep
 import cius.mai_onsyn.dobot.gui.util.universal_module.CardBase
 import cius.mai_onsyn.dobot.gui.util.universal_module.LabeledItem
@@ -74,7 +75,7 @@ fun ArmJointControlPanel(
                     label = value,
                     modifier = Modifier
                         .height(40.dp)
-                        .padding(start = 16.dp),
+                        .padding(start = GLOBAL_PADDING),
                     labelWidth = 20.dp,
                     fontSize = 16.sp,
                     textColor = colorScheme.onBackground
@@ -146,7 +147,7 @@ fun ArmJointControlPanel(
                 label = "步进",
                 modifier = Modifier
                     .height(60.dp)
-                    .padding(start = 16.dp),
+                    .padding(start = GLOBAL_PADDING),
                 labelWidth = 40.dp,
                 textColor = colorScheme.onBackground
             ) {

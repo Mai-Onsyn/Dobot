@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import cius.mai_onsyn.dobot.gui.GLOBAL_PADDING
 
 @Composable
 fun AdjustPage() {
@@ -32,9 +33,9 @@ fun AdjustPage() {
 //            )
             ArmControlPanel()
         }
-        Spacer(modifier = Modifier.width(16.dp))
+        Spacer(modifier = Modifier.width(GLOBAL_PADDING))
         VerticalDivider()
-        Spacer(modifier = Modifier.width(16.dp))
+        Spacer(modifier = Modifier.width(GLOBAL_PADDING))
         Box(
             modifier = Modifier
                 .weight(1f)

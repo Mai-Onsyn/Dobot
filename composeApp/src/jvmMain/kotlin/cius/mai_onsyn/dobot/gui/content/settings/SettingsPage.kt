@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import cius.mai_onsyn.dobot.gui.GLOBAL_PADDING
 import cius.mai_onsyn.dobot.gui.top.ThemeSwitch
 import cius.mai_onsyn.dobot.gui.util.Config.isDarkMode
 
@@ -31,7 +32,7 @@ fun SettingsPage() {
                 color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(GLOBAL_PADDING))
 
             ThemeSwitch(
                 modifier = Modifier.align(Alignment.CenterHorizontally),

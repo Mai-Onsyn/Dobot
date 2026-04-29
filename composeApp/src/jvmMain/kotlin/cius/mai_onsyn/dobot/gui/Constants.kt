@@ -5,3 +5,5 @@ import androidx.compose.ui.unit.dp
 
 val ROUND_CORNER_RADIUS = 8.dp
 val ROUND_CORNER_SHAPE = RoundedCornerShape(ROUND_CORNER_RADIUS)
+
+val GLOBAL_PADDING = 12.dp

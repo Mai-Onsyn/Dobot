@@ -29,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import cius.mai_onsyn.dobot.gui.GLOBAL_PADDING
 import cius.mai_onsyn.dobot.gui.util.tweenSpecFloat
 
 @Composable
@@ -75,7 +76,7 @@ fun BoxScope.ArmControlPanel(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 16.dp),
+                .padding(top = GLOBAL_PADDING),
             contentAlignment = Alignment.Center
         ) {
             AnimatedContent(
