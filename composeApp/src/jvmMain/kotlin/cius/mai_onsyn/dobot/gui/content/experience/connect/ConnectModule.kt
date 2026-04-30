@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -46,22 +48,28 @@ fun ConnectModule(
                 Column(modifier = Modifier.weight(1f)
                     .padding(end = 12.dp)
                     .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
                 ) {
-                    DeviceStatusLabel(name = "机械臂",modifier = Modifier.weight(1f))
-                    Spacer(modifier = Modifier.height(20.dp))
-                    DeviceStatusLabel(name = "灵巧手",modifier = Modifier.weight(1f))
-                    Spacer(modifier = Modifier.height(20.dp))
-                    DeviceStatusLabel(name = "升降台",modifier = Modifier.weight(1f))
+                    Spacer(modifier = Modifier.weight(0.4f))
+                    DeviceStatusLabel(name = "机械臂",modifier = Modifier.height(40.dp))
+                    Spacer(modifier = Modifier.height(15.dp))
+                    DeviceStatusLabel(name = "灵巧手",modifier = Modifier.height(40.dp))
+                    Spacer(modifier = Modifier.height(15.dp))
+                    DeviceStatusLabel(name = "升降台",modifier = Modifier.height(40.dp))
+                    Spacer(modifier = Modifier.weight(1f))
                 }
                 Column(modifier = Modifier.weight(1f)
                     .padding(end = 12.dp)
                     .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
                 ) {
-                    DeviceStatusLabel(name = "蠕动泵",modifier = Modifier.weight(1f))
-                    Spacer(modifier = Modifier.height(20.dp))
-                    DeviceStatusLabel(name = "抽水泵",modifier = Modifier.weight(1f))
-                    Spacer(modifier = Modifier.height(20.dp))
-                    DeviceStatusLabel(name = "摄像机",modifier = Modifier.weight(1f))
+                    Spacer(modifier = Modifier.weight(0.4f))
+                    DeviceStatusLabel(name = "蠕动泵",modifier = Modifier.height(40.dp))
+                    Spacer(modifier = Modifier.height(15.dp))
+                    DeviceStatusLabel(name = "抽水泵",modifier = Modifier.height(40.dp))
+                    Spacer(modifier = Modifier.height(15.dp))
+                    DeviceStatusLabel(name = "摄像机",modifier = Modifier.height(40.dp))
+                    Spacer(modifier = Modifier.weight(1f))
                 }
             }
         }

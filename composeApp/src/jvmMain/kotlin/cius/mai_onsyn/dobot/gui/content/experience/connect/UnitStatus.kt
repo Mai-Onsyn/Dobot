@@ -40,16 +40,16 @@ fun DeviceStatusLabel(name: String, isConnected: Boolean=true,modifier: Modifier
     ) {
         Row{
             Text(text="$name",
-                modifier = Modifier.width(60.dp),
+                modifier = Modifier,
                 color=MaterialTheme.colorScheme.onSurface)
-            Spacer(modifier = Modifier.width(30.dp))
+            Spacer(modifier = Modifier.weight(1.5f))
             Box(
                 modifier = Modifier
                     .size(10.dp)
                     .offset(y=5.dp)
                     .background(statusColor, CircleShape)
             )
-            Spacer(modifier = Modifier.width(6.dp))
+            Spacer(modifier = Modifier.weight(0.1f))
             Text(text=statusText,color=statusColor)
         }
 
