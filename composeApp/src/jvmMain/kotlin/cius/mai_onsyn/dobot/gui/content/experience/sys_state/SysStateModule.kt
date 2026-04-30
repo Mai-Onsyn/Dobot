@@ -41,7 +41,7 @@ fun SysStateModule(
                 )
             }
             Spacer(modifier= Modifier.height(12.dp))
-            StatusCheckCircle(false)
+            StatusCheckCircle()
         }
     }
 }

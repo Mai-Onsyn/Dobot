@@ -1,7 +1,7 @@
 {
 	"ui":{
 		"theme":{
-			"is_dark_mode":false
+			"is_dark_mode":true
 		}
 	},
 	"core":{

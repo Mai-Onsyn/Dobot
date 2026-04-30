@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun StatusCheckCircle(isConnected: Boolean = true, modifier: Modifier = Modifier) {
-    val color = if (isConnected) Color(0xFF3EA65D) else Color.Red
+    val color = if (isConnected) Color(62,166,93) else Color.Red
 
     Column(
         modifier = modifier.fillMaxSize(),
