@@ -1,6 +1,7 @@
 package cius.mai_onsyn.dobot.gui.content.experience.connect
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -32,14 +33,15 @@ fun DeviceStatusLabel(name: String, isConnected: Boolean=true,modifier: Modifier
         modifier = modifier
             .fillMaxWidth()
             .background(
-                color = MaterialTheme.colorScheme.surfaceContainerHigh,
+                color = MaterialTheme.colorScheme.surfaceContainerLow,
                 shape = ROUND_CORNER_SHAPE
             )
-            .padding(12.dp),
+            .border(width = 1.dp, color = MaterialTheme.colorScheme.outline.copy(0.2f), shape = ROUND_CORNER_SHAPE)
+            .padding(horizontal = 12.dp),
         contentAlignment = Alignment.CenterStart
     ) {
         Row{
-            Text(text="$name",
+            Text(text= name,
                 modifier = Modifier,
                 color=MaterialTheme.colorScheme.onSurface)
             Spacer(modifier = Modifier.weight(1.5f))

@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import cius.mai_onsyn.dobot.gui.ROUND_CORNER_SHAPE
 import cius.mai_onsyn.dobot.gui.util.universal_module.CardBase
 
@@ -38,7 +39,8 @@ fun ConnectModule(
                 Text(
                     text = "连接状态",
                     modifier = Modifier,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    fontSize = 14.sp
                 )
             }
             Spacer(modifier = Modifier.height(12.dp)
