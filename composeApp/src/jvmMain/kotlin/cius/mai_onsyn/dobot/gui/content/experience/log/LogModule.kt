@@ -5,6 +5,7 @@ import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -14,11 +15,16 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.Text
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,6 +36,7 @@ import cius.mai_onsyn.dobot.log
 import dobot.composeapp.generated.resources.Res
 import dobot.composeapp.generated.resources.icon_delete
 import dobot.composeapp.generated.resources.icon_export
+import org.apache.logging.log4j.core.LogEvent
 
 @Composable
 fun LogModule(
@@ -93,12 +100,30 @@ fun LogModule(
                     .background(MaterialTheme.colorScheme.surfaceContainerLow)
             ) {
                 log.info("test message")
-                val state = rememberScrollState()
+                log.error("test message2")
+                log.warn("test message3")
+
+                val logs = remember { mutableStateListOf<LogEvent>() }
+                LaunchedEffect(Unit) {
+                    for (i in LOG_QUEUE) {
+                        logs.add(i)
+                    }
+                }
+                val state = rememberLazyListState()
                 LazyColumn(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .scrollable(state, Orientation.Vertical)
+                        .padding(12.dp)
+                        .fillMaxSize(),
+                    state = state,
                 ) {
+                    items(logs) { log ->
+                        LogItem(
+                            event = log,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                    }
                 }
             }
         }

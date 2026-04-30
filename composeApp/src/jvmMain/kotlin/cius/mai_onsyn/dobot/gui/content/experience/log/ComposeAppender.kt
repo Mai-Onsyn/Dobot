@@ -22,7 +22,7 @@ class ComposeAppender(
 ) : AbstractAppender(name, filter, layout, true, Property.EMPTY_ARRAY) {
 
     override fun append(event: LogEvent) {
-        LOG_QUEUE.trySend(event)
+        LOG_QUEUE.trySend(event.toImmutable())
     }
 
     companion object {

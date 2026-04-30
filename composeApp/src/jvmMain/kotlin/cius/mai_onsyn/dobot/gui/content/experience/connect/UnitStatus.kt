@@ -28,7 +28,7 @@ import cius.mai_onsyn.dobot.gui.util.background
 @Composable
 fun DeviceStatusLabel(name: String, isConnected: Boolean=true,modifier: Modifier=Modifier) {
     val statusText = if (isConnected) "已连接" else "未连接"
-    val statusColor = if (isConnected) Color(0xFF2E7D32) else Color.Red
+    val statusColor = if (isConnected) Color(62, 166, 93) else Color.Red
     Box(
         modifier = modifier
             .fillMaxWidth()
