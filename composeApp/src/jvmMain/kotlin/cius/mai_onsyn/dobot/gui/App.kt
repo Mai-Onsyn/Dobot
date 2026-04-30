@@ -21,10 +21,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import cius.mai_onsyn.dobot.gui.left.GuidColumn
@@ -34,45 +37,49 @@ import cius.mai_onsyn.dobot.gui.util.Config.isDarkMode
 import cius.mai_onsyn.dobot.gui.util.botDarkTheme
 import cius.mai_onsyn.dobot.gui.util.botLightTheme
 import cius.mai_onsyn.dobot.gui.util.interaction
+import java.awt.Toolkit
 
 @Composable
 @Preview
 fun App() {
-    AnimatedMaterialTheme(
-        colorScheme = if (isDarkMode) botDarkTheme else botLightTheme
-    ) {
-        val focusManager = LocalFocusManager.current
-        Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background)
-                .pointerInput(Unit) {
-                    detectTapGestures {
-                        focusManager.clearFocus()
-                    }
-                }
+    val density = Density(Toolkit.getDefaultToolkit().screenResolution / 96f)
+    CompositionLocalProvider(LocalDensity provides density) {
+        AnimatedMaterialTheme(
+            colorScheme = if (isDarkMode) botDarkTheme else botLightTheme
         ) {
-            GuidColumn(
-                modifier = Modifier.width(150.dp).zIndex(10f)
-            )
-            Column(
-                modifier = Modifier.fillMaxSize()
-            ) {
-                TopBar(modifier = Modifier
-                    .height(48.dp)
-                )
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(GLOBAL_PADDING)
-                ) {
-                    AnimatedContent(
-                        targetState = currentPage,
-                        transitionSpec = {
-                            fadeIn(animationSpec = tween(220)) + scaleIn(initialScale = 0.92f) togetherWith
-                                    fadeOut(animationSpec = tween(120))
+            val focusManager = LocalFocusManager.current
+            Row(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.background)
+                    .pointerInput(Unit) {
+                        detectTapGestures {
+                            focusManager.clearFocus()
                         }
-                    ) { it.content() }
+                    }
+            ) {
+                GuidColumn(
+                    modifier = Modifier.width(150.dp).zIndex(10f)
+                )
+                Column(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    TopBar(modifier = Modifier
+                        .height(48.dp)
+                    )
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(GLOBAL_PADDING)
+                    ) {
+                        AnimatedContent(
+                            targetState = currentPage,
+                            transitionSpec = {
+                                fadeIn(animationSpec = tween(220)) + scaleIn(initialScale = 0.92f) togetherWith
+                                        fadeOut(animationSpec = tween(120))
+                            }
+                        ) { it.content() }
+                    }
                 }
             }
         }

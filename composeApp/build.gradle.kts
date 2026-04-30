@@ -54,6 +54,7 @@ compose.desktop {
             "-Dfile.encoding=UTF-8",
             "-Dsun.stdout.encoding=UTF-8",
             "-Dsun.stderr.encoding=UTF-8",
+            "-Dsun.java2d.uiScale=1.0"  // 防止系统缩放倍率不为整数产生的抖动
         )
     }
 }
