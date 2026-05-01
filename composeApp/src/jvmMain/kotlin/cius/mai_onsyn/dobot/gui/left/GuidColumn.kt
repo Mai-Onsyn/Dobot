@@ -7,8 +7,11 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonColors
+import androidx.compose.material.Icon
 import androidx.compose.material.NavigationRail
 import androidx.compose.material.Text
 import androidx.compose.material3.Button
@@ -28,6 +31,7 @@ import cius.mai_onsyn.dobot.gui.ROUND_CORNER_SHAPE
 import cius.mai_onsyn.dobot.gui.content.Page
 import cius.mai_onsyn.dobot.gui.currentPage
 import cius.mai_onsyn.dobot.gui.util.appShadow
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun GuidColumn(
@@ -45,7 +49,7 @@ fun GuidColumn(
         Text(
             text = "控制台",
             fontSize = 20.sp,
-            color = theme.onSurfaceVariant,
+            color = theme.onSurface,
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .fillMaxWidth()
@@ -64,10 +68,17 @@ fun GuidColumn(
                 shape = ROUND_CORNER_SHAPE,
                 modifier = Modifier.fillMaxWidth().height(50.dp)
             ) {
+                Icon(
+                    painter = painterResource(it.icon),
+                    contentDescription = null,
+                    tint = theme.onSurface,
+                    modifier = Modifier.size(20.dp)
+                )
+//                Spacer(modifier = Modifier.width(8.dp))
                 Text(
                     text = it.title,
                     fontSize = 14.sp,
-                    color = theme.onSurfaceVariant,
+                    color = theme.onSurface,
                     textAlign = TextAlign.Center,
                     modifier = Modifier
                         .fillMaxWidth()

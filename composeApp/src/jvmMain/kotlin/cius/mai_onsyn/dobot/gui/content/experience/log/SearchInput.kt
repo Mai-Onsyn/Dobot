@@ -58,7 +58,7 @@ fun SearchInput(
                         contentDescription = null,
                         tint = colorScheme.onSurface,
                         modifier = Modifier
-                            .size(12.dp)
+                            .size(18.dp)
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Box(

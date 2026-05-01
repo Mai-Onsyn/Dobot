@@ -32,7 +32,7 @@ fun ButtonWithIcon(
         onClick = {},
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainer,
-            contentColor = MaterialTheme.colorScheme.surfaceVariant
+            contentColor = MaterialTheme.colorScheme.onSurface
         ),
         contentPadding = PaddingValues(0.dp),
         shape = ROUND_CORNER_SHAPE,
@@ -57,9 +57,9 @@ fun ButtonWithIcon(
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier
-                        .size(12.dp)
+                        .size(18.dp)
                 )
-                Spacer(modifier = Modifier.size(8.dp))
+                Spacer(modifier = Modifier.size(4.dp))
                 Text(
                     text = text,
                     fontSize = 13.sp,

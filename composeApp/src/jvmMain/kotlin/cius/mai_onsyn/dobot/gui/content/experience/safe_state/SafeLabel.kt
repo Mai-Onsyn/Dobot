@@ -15,13 +15,20 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.ui.unit.sp
+import cius.mai_onsyn.dobot.gui.GREEN_COLOR
+import cius.mai_onsyn.dobot.gui.RED_COLOR
 
 
 @Composable
-fun SafeLable(name: String, isConnected: Boolean=true,modifier: Modifier =Modifier) {
-    val statusText = if (isConnected) "正常" else "故障"
-    val statusColor = if (isConnected) Color(62,166,93) else Color.Red
+fun SafeLabel(
+    name: String,
+    statusText: String,
+    isSafe: Boolean = true,
+    modifier: Modifier = Modifier.height(42.dp)
+) {
+    val statusColor = if (isSafe) GREEN_COLOR else RED_COLOR
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -41,6 +48,5 @@ fun SafeLable(name: String, isConnected: Boolean=true,modifier: Modifier =Modifi
             Spacer(modifier = Modifier.weight(1.5f))
             Text(text=statusText,color=statusColor, fontSize = 12.sp)
         }
-
     }
 }

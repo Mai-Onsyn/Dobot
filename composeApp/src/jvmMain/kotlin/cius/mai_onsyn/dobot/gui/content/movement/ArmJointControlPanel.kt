@@ -138,7 +138,6 @@ fun ArmJointControlPanel(
             HorizontalDivider(
                 modifier = Modifier
                     .fillMaxWidth(0.9f)
-//                    .height(1.dp)
                     .align(Alignment.CenterHorizontally)
             )
             Spacer(Modifier.height(20.dp))

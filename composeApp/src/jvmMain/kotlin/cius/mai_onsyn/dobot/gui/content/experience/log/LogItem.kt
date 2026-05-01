@@ -20,6 +20,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cius.mai_onsyn.dobot.gui.BLUE_COLOR
+import cius.mai_onsyn.dobot.gui.GREEN_COLOR
+import cius.mai_onsyn.dobot.gui.RED_COLOR
 import cius.mai_onsyn.dobot.gui.ROUND_CORNER_SHAPE
 import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.core.LogEvent
@@ -43,7 +46,7 @@ fun LogItem(
         Text(
             text = dateFormat.format(event.timeMillis),
             fontSize = FONT_SIZE,
-            color = Color(57, 118, 229),
+            color = BLUE_COLOR,
             modifier = Modifier
 //                .width(TIME_WIDTH)
         )
@@ -61,7 +64,7 @@ fun LogItem(
             modifier = Modifier
                 .width(LEVEL_WIDTH)
         ) {
-            val color = if (event.level == Level.INFO) Color(62, 166, 93)
+            val color = if (event.level == Level.INFO) GREEN_COLOR
                         else event.level.color(MaterialTheme.colorScheme)
             Text(
                 text = event.level.name(),
@@ -90,7 +93,7 @@ private fun Level.color(colorScheme: ColorScheme): Color {
         Level.DEBUG -> colorScheme.onSurfaceVariant
         Level.INFO -> colorScheme.onSurface
         Level.WARN -> Color(255, 165, 0)
-        Level.ERROR -> Color.Red
+        Level.ERROR -> RED_COLOR
         else -> colorScheme.onSurface
     }
 }

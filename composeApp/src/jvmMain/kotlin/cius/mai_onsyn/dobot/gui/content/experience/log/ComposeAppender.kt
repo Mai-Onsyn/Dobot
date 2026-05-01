@@ -12,7 +12,7 @@ import org.apache.logging.log4j.core.config.plugins.PluginElement
 import org.apache.logging.log4j.core.config.plugins.PluginFactory
 import java.io.Serializable
 
-val LOG_QUEUE = Channel<LogEvent>(64)
+val LOG_QUEUE = Channel<LogEvent>(Channel.UNLIMITED)
 
 @Plugin(name = "ComposeAppender", category = "Core", elementType = "appender")
 class ComposeAppender(

@@ -1,12 +1,15 @@
 package cius.mai_onsyn.dobot.gui.content.experience.flow
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
@@ -17,6 +20,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cius.mai_onsyn.dobot.gui.GLOBAL_PADDING
 import cius.mai_onsyn.dobot.gui.util.universal_module.CardBase
+import dobot.composeapp.generated.resources.Res
+import dobot.composeapp.generated.resources.icon_list
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun FlowModule(
@@ -30,14 +36,25 @@ fun FlowModule(
                 .fillMaxSize()
                 .padding(GLOBAL_PADDING)
         ) {
-            Text(
-                text = "流程步骤",
-                color = MaterialTheme.colorScheme.onSurface,
-                fontSize = 14.sp
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    painter = painterResource(Res.drawable.icon_list),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.size(18.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = "流程步骤",
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontSize = 14.sp
+                )
+            }
 
             Spacer(modifier = Modifier.height(GLOBAL_PADDING))
-            HorizontalDivider(modifier = Modifier.fillMaxWidth().align(Alignment.CenterHorizontally))
+            HorizontalDivider()
             Spacer(modifier = Modifier.height(12.dp))
 
             FlowGraph(

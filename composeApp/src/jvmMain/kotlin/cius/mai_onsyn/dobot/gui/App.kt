@@ -37,12 +37,17 @@ import cius.mai_onsyn.dobot.gui.util.Config.isDarkMode
 import cius.mai_onsyn.dobot.gui.util.botDarkTheme
 import cius.mai_onsyn.dobot.gui.util.botLightTheme
 import cius.mai_onsyn.dobot.gui.util.interaction
+import cius.mai_onsyn.dobot.log
 import java.awt.Toolkit
 
 @Composable
 @Preview
 fun App() {
+    repeat(100) {
+        log.info("这是假日志$it")
+    }
     val density = Density(Toolkit.getDefaultToolkit().screenResolution / 96f)
+    // 防止系统缩放倍率不为整数产生的抖动
     CompositionLocalProvider(LocalDensity provides density) {
         AnimatedMaterialTheme(
             colorScheme = if (isDarkMode) botDarkTheme else botLightTheme

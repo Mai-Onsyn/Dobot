@@ -21,10 +21,11 @@ import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cius.mai_onsyn.dobot.gui.RED_COLOR
 
 @Composable
 fun StatusCheckCircle(isConnected: Boolean = true, modifier: Modifier = Modifier) {
-    val color = if (isConnected) Color(62,166,93) else Color.Red
+    val color = if (isConnected) Color(62,166,93) else RED_COLOR
 
     Column(
         modifier = modifier.fillMaxSize(),
