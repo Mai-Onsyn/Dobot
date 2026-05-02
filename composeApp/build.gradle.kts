@@ -7,6 +7,13 @@ plugins {
     alias(libs.plugins.composeHotReload)
 }
 
+repositories {
+    maven { url = uri("https://maven.aliyun.com/repository/public") }
+    maven { url = uri("https://maven.aliyun.com/repository/google") }
+    mavenCentral()
+    google()
+}
+
 kotlin {
     jvm()
     
@@ -57,4 +64,10 @@ compose.desktop {
             "-Dsun.java2d.uiScale=1.0"  // 防止系统缩放倍率不为整数产生的抖动
         )
     }
+}
+
+tasks.withType<JavaExec>().configureEach {
+    standardInput = System.`in`
+    // 强制禁用输出缓冲，确保 Scanner 的提示语能即时显示
+    systemProperty("io.netty.leakDetection.level", "PARANOID") // 可选：仅示例
 }

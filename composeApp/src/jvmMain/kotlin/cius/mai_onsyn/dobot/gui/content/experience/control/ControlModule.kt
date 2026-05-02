@@ -5,15 +5,14 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -21,18 +20,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import cius.mai_onsyn.dobot.gui.BLUE_COLOR
-import cius.mai_onsyn.dobot.gui.GLOBAL_PADDING
-import cius.mai_onsyn.dobot.gui.GREEN_COLOR
-import cius.mai_onsyn.dobot.gui.RED_COLOR
-import cius.mai_onsyn.dobot.gui.ROUND_CORNER_SHAPE
-import cius.mai_onsyn.dobot.gui.WHITE_COLOR
-import cius.mai_onsyn.dobot.gui.expProgress
-import cius.mai_onsyn.dobot.gui.experimenting
-import cius.mai_onsyn.dobot.gui.util.background
+import cius.mai_onsyn.dobot.gui.*
+import cius.mai_onsyn.dobot.gui.content.experience.info.onStartButtonClicked
+import cius.mai_onsyn.dobot.gui.content.experience.info.onStop
+import cius.mai_onsyn.dobot.gui.util.formatMillisToTime
 import cius.mai_onsyn.dobot.gui.util.tweenSpecColor
 import cius.mai_onsyn.dobot.gui.util.tweenSpecFloat
 import cius.mai_onsyn.dobot.gui.util.universal_module.CardBase
@@ -80,7 +73,7 @@ fun ControlModule(
                     modifier = Modifier.fillMaxSize()
                 ) {
                     Button(
-                        onClick = { experimenting = !experimenting },
+                        onClick = { onStartButtonClicked() },
                         colors = ButtonDefaults.buttonColors(
                             containerColor = animateColorAsState(
                                 if (experimenting) RED_COLOR else GREEN_COLOR,
@@ -115,7 +108,7 @@ fun ControlModule(
                     }
                     Spacer(modifier = Modifier.width(GLOBAL_PADDING))
                     Button(
-                        onClick = { experimenting = false },
+                        onClick = { onStop() },
                         colors = ButtonDefaults.buttonColors(
                             containerColor = colorScheme.surfaceContainer,
                             contentColor = colorScheme.onSurface
@@ -171,6 +164,9 @@ fun ControlModule(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
+                    LaunchedEffect(currentStep) {
+                        expProgress = ((currentStep + 1).toFloat() / currentExperimentName.size).coerceIn(0f, 1f)
+                    }
                     val animatedProgress = animateFloatAsState(
                         targetValue = expProgress,
                         animationSpec = tweenSpecFloat
@@ -202,13 +198,23 @@ fun ControlModule(
                 Box(
                     modifier = Modifier.fillMaxWidth()
                 ) {
+                    var timePassed by remember { mutableStateOf(System.currentTimeMillis() - currentStartTime) }
+                    Thread.ofVirtual().start {
+                        Thread.sleep(1000)
+                        if (experimenting) {
+                            timePassed = System.currentTimeMillis() - currentStartTime
+                        } else {
+                            timePassed = 0
+                            currentStartTime = System.currentTimeMillis()
+                        }
+                    }
                     Text(
-                        text = "已用时间: 00:00",
+                        text = "已用时间: ${formatMillisToTime(timePassed)}",
                         color = colorScheme.onSurface,
                         fontSize = 13.sp
                     )
                     Text(
-                        text = "预计剩余: 00:00",
+                        text = "预计剩余: ${formatMillisToTime((timePassed) / expProgress - timePassed)}",
                         color = colorScheme.onSurface,
                         fontSize = 13.sp,
                         modifier = Modifier.align(Alignment.CenterEnd)

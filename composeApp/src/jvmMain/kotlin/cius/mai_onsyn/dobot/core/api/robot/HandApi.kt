@@ -1,7 +1,7 @@
 package cius.mai_onsyn.dobot.core.api.robot
 
-import cius.mai_onsyn.dobot.robot.hand.HandJoint
-import cius.mai_onsyn.dobot.robot.hand.HandFinger
+import cius.mai_onsyn.dobot.core.robot.hand.HandJoint
+import cius.mai_onsyn.dobot.core.robot.hand.HandFinger
 
 class HandApi(private val modbus: RobotModbusApi) {
     private var modbusIndex: Int = -1   //Modbus主站索引

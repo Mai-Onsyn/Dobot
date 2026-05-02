@@ -1,4 +1,4 @@
-package cius.mai_onsyn.dobot.control
+package cius.mai_onsyn.dobot.core.control
 
 //import cius.mai_onsyn.dobot.core.api.robot.DobotE6V4
 //import javafx.application.Application

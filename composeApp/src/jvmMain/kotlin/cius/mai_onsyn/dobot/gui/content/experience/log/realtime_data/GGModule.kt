@@ -1,21 +1,12 @@
 package cius.mai_onsyn.dobot.gui.content.experience.log.realtime_data
 
-import dobot.composeapp.generated.resources.Res
-import dobot.composeapp.generated.resources.icon_log
-import kotlinx.coroutines.delay
-import org.jetbrains.compose.resources.painterResource
-import java.time.LocalTime
-import java.time.format.DateTimeFormatter
-import kotlin.random.Random
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
-//import androidx.compose.material.icons.Icons
-//import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -25,6 +16,16 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import cius.mai_onsyn.dobot.gui.ROUND_CORNER_SHAPE
+import dobot.composeapp.generated.resources.Res
+import dobot.composeapp.generated.resources.icon_angle
+import dobot.composeapp.generated.resources.icon_core_status
+import dobot.composeapp.generated.resources.icon_device_status
+import dobot.composeapp.generated.resources.icon_exp_res
+import dobot.composeapp.generated.resources.icon_graph
+import dobot.composeapp.generated.resources.icon_location
+import dobot.composeapp.generated.resources.icon_log
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.painterResource
 
 /**
  * 监控数据状态实体
@@ -58,7 +59,7 @@ fun MonitoringDashboard(data: MonitorData, modifier: Modifier = Modifier) {
     ) {
         // 软件运行数据卡片
         item {
-            MonitorCard("运行统计", null) {
+            MonitorCard("运行统计", Res.drawable.icon_graph) {
                 MetricRow("进行时间", data.runningTime, "")
                 MetricRow("轨迹数量", data.trajectoryCount.toString(), "条")
                 MetricRow("循环轮数", data.loopCount.toString(), "轮")
@@ -66,7 +67,7 @@ fun MonitoringDashboard(data: MonitorData, modifier: Modifier = Modifier) {
         }
 
         item {
-            MonitorCard("核心指标", null) {
+            MonitorCard("核心指标", Res.drawable.icon_core_status) {
                 MetricRow("色蕴指标", "%.2f".format(data.colorIndex), "SI")
                 MetricRow("置信度", "%.1f%%".format(data.confidence * 100), "")
                 LinearProgressIndicator(
@@ -79,7 +80,7 @@ fun MonitoringDashboard(data: MonitorData, modifier: Modifier = Modifier) {
         }
 
         item {
-            MonitorCard("实验结果", null) {
+            MonitorCard("实验结果", Res.drawable.icon_exp_res) {
                 MetricRow("泥土含量", "%.2f%%".format(data.soilContent), "")
                 Spacer(modifier = Modifier.height(8.dp))
                 Box(
@@ -101,7 +102,7 @@ fun MonitoringDashboard(data: MonitorData, modifier: Modifier = Modifier) {
 
         // 硬件监控数据卡片
         item {
-            MonitorCard("位置信息", null) {
+            MonitorCard("位置信息", Res.drawable.icon_location) {
                 MetricRow("X轴坐标", "%.2f".format(data.robotPos.first), "mm")
                 MetricRow("Y轴坐标", "%.2f".format(data.robotPos.second), "mm")
                 MetricRow("Z轴坐标", "%.2f".format(data.robotPos.third), "mm")
@@ -109,7 +110,7 @@ fun MonitoringDashboard(data: MonitorData, modifier: Modifier = Modifier) {
         }
 
         item {
-            MonitorCard("关节角度", null) {
+            MonitorCard("关节角度", Res.drawable.icon_angle) {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     JointGrid(data.jointAngles)
                 }
@@ -117,7 +118,7 @@ fun MonitoringDashboard(data: MonitorData, modifier: Modifier = Modifier) {
         }
 
         item {
-            MonitorCard("设备状态", null) {
+            MonitorCard("设备状态", Res.drawable.icon_device_status) {
                 MetricRow("搅拌机转速", data.mixerSpeed.toString(), "RPM")
                 StatusRow("升降台", data.elevatorStatus)
                 StatusRow("烧杯状态", data.beakerStatus)
@@ -127,15 +128,18 @@ fun MonitoringDashboard(data: MonitorData, modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun MonitorCard(title: String, icon: ImageVector?, content: @Composable ColumnScope.() -> Unit) {
+private fun MonitorCard(title: String, icon: DrawableResource, content: @Composable ColumnScope.() -> Unit) {
     ElevatedCard(
         modifier = Modifier.fillMaxWidth(),
-        shape = ROUND_CORNER_SHAPE
+        shape = ROUND_CORNER_SHAPE,
+        colors = CardDefaults.elevatedCardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceContainerLow
+        )
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
-                    painterResource(Res.drawable.icon_log),
+                    painterResource(icon),
                     contentDescription = null,
                     modifier = Modifier.size(20.dp),
                     tint = MaterialTheme.colorScheme.primary

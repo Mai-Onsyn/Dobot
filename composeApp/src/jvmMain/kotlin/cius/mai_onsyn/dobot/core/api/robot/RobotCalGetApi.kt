@@ -1,9 +1,9 @@
 package cius.mai_onsyn.dobot.core.api.robot
 
 import cius.mai_onsyn.dobot.core.api.appendUserTool
-import cius.mai_onsyn.dobot.robot.arm.Coordinate
-import cius.mai_onsyn.dobot.robot.arm.Joint
-import cius.mai_onsyn.dobot.robot.arm.RobotMode
+import cius.mai_onsyn.dobot.core.robot.arm.Coordinate
+import cius.mai_onsyn.dobot.core.robot.arm.Joint
+import cius.mai_onsyn.dobot.core.robot.arm.RobotMode
 import cius.mai_onsyn.dobot.core.api.socket.Message
 import cius.mai_onsyn.dobot.core.api.socket.RobotConnection
 import cius.mai_onsyn.dobot.core.api.socket.RobotResponse

@@ -1,4 +1,4 @@
-package cius.mai_onsyn.dobot.robot.arm
+package cius.mai_onsyn.dobot.core.robot.arm
 
 import cius.mai_onsyn.dobot.core.api.toFixedString
 

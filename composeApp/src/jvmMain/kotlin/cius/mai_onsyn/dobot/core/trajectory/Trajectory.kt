@@ -1,4 +1,4 @@
-package cius.mai_onsyn.dobot.trajectory
+package cius.mai_onsyn.dobot.core.trajectory
 
 import cius.mai_onsyn.dobot.core.api.robot.HandApi
 import cius.mai_onsyn.dobot.core.api.robot.RobotCalGetApi

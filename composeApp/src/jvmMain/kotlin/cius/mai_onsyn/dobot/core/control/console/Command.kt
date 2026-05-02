@@ -1,4 +1,4 @@
-package cius.mai_onsyn.dobot.control.console
+package cius.mai_onsyn.dobot.core.control.console
 
 interface Command {
     val name: String

@@ -1,4 +1,4 @@
-package cius.mai_onsyn.dobot.control
+package cius.mai_onsyn.dobot.core.control
 
 import kotlin.math.sqrt
 

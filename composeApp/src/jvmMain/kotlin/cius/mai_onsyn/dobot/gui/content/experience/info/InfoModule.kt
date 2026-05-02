@@ -13,6 +13,11 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -20,7 +25,9 @@ import androidx.compose.ui.unit.sp
 import cius.mai_onsyn.dobot.gui.BLUE_COLOR
 import cius.mai_onsyn.dobot.gui.GLOBAL_PADDING
 import cius.mai_onsyn.dobot.gui.ROUND_CORNER_SHAPE
+import cius.mai_onsyn.dobot.gui.currentStartTime
 import cius.mai_onsyn.dobot.gui.experimenting
+import cius.mai_onsyn.dobot.gui.util.formatMillisToTime
 import cius.mai_onsyn.dobot.gui.util.universal_module.CardBase
 import dobot.composeapp.generated.resources.Res
 import dobot.composeapp.generated.resources.icon_info
@@ -65,7 +72,7 @@ fun InfoModule(
                 InfoItem(
                     modifier = Modifier.height(28.dp),
                     title = "实验文件",
-                    content = "实验文件名.json",
+                    content = "细集亚甲蓝.json",
                     contentColor = BLUE_COLOR,
                     extra = {
                         Button(
@@ -134,13 +141,20 @@ fun InfoModule(
                     title = "当前步骤",
                     content = "抓取物品"
                 )
-                Spacer(modifier = Modifier.height(8.dp))
-                InfoItem(
-                    modifier = Modifier.height(28.dp),
-                    title = "预计剩余时间",
-                    content = "00:14",
-                    contentColor = BLUE_COLOR
-                )
+//                var timePassed by remember { mutableStateOf(System.currentTimeMillis() - currentStartTime) }
+//                Thread.ofVirtual().start {
+//                    Thread.sleep(1000)
+//                    if (experimenting) {
+//                        timePassed = System.currentTimeMillis() - currentStartTime
+//                    } else currentStartTime = System.currentTimeMillis()
+//                }
+//                Spacer(modifier = Modifier.height(8.dp))
+//                InfoItem(
+//                    modifier = Modifier.height(28.dp),
+//                    title = "预计剩余时间",
+//                    content = formatMillisToTime(timePassed),
+//                    contentColor = BLUE_COLOR
+//                )
             }
         }
     }

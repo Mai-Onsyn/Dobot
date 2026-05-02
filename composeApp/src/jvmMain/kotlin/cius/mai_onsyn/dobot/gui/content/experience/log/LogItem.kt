@@ -32,7 +32,8 @@ private val TIME_WIDTH = 120.dp
 private val THREAD_WIDTH = 110.dp
 private val LEVEL_WIDTH = 50.dp
 private val SPACING = 10.dp
-private val dateFormat = SimpleDateFormat("yyyy-mm-dd HH:mm:ss")
+//private val dateFormat = SimpleDateFormat("yyyy-mm-dd HH:mm:ss")
+private val dateFormat = SimpleDateFormat("HH:mm:ss")
 private val FONT_SIZE = 13.sp
 
 @Composable

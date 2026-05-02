@@ -30,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import cius.mai_onsyn.dobot.core.UIInterface.app
 import cius.mai_onsyn.dobot.gui.left.GuidColumn
 import cius.mai_onsyn.dobot.gui.top.TopBar
 import cius.mai_onsyn.dobot.gui.util.AnimatedMaterialTheme
@@ -39,12 +40,13 @@ import cius.mai_onsyn.dobot.gui.util.botLightTheme
 import cius.mai_onsyn.dobot.gui.util.interaction
 import cius.mai_onsyn.dobot.log
 import java.awt.Toolkit
+import kotlin.concurrent.thread
 
 @Composable
 @Preview
 fun App() {
-    repeat(100) {
-        log.info("这是假日志$it")
+    thread(name = "Console") {
+        app.run()
     }
     val density = Density(Toolkit.getDefaultToolkit().screenResolution / 96f)
     // 防止系统缩放倍率不为整数产生的抖动

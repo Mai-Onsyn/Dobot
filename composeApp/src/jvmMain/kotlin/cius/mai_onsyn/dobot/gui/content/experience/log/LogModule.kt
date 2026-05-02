@@ -45,10 +45,12 @@ import dobot.composeapp.generated.resources.Res
 import dobot.composeapp.generated.resources.icon_dustbin
 import dobot.composeapp.generated.resources.icon_export
 import dobot.composeapp.generated.resources.icon_log
+import dobot.composeapp.generated.resources.icon_readtime_data
 import org.apache.logging.log4j.core.LogEvent
 import org.jetbrains.compose.resources.painterResource
 
 private var tabIndex by mutableStateOf(0)
+val logs = mutableStateListOf<LogEvent>()
 
 @Composable
 fun LogModule(
@@ -121,7 +123,7 @@ fun LogModule(
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Icon(
-                                    painter = painterResource(Res.drawable.icon_log),
+                                    painter = painterResource(Res.drawable.icon_readtime_data),
                                     contentDescription = null,
                                     tint = colorScheme.onSurface,
                                     modifier = Modifier.size(18.dp)
@@ -204,11 +206,10 @@ fun LogModule(
                             .background(MaterialTheme.colorScheme.surfaceContainerLow)
                     ) {
 
-                        val logs = remember { mutableStateListOf<LogEvent>() }
                         LaunchedEffect(Unit) {
-                            log.info("test message")
-                            log.error("test message2")
-                            log.warn("test message3")
+//                            log.info("test message")
+//                            log.error("test message2")
+//                            log.warn("test message3")
                             for (i in LOG_QUEUE) {
                                 logs.add(i)
                             }
@@ -240,7 +241,16 @@ fun LogModule(
                     }
                     1 -> MonitoringDashboard(
                         MonitorData(
-                            soilContent = 63.4f
+                            soilContent = 63.4f,
+                            trajectoryCount = 12,
+                            loopCount = 4,
+                            runningTime = "6分钟",
+                            colorIndex = 78f,
+                            confidence = 0.9284f,
+                            robotPos = Triple(132.3f, -0.2f, 32.1f),
+                            jointAngles = listOf(179.8f,32.5f, 25.9f, -30.6f, 104.4f, 0f),
+                            mixerSpeed = 400,
+                            elevatorStatus = "READY"
                         )
                     )
                 }

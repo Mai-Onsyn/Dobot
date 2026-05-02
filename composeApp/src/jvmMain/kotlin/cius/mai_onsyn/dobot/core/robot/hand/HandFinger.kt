@@ -1,4 +1,4 @@
-package cius.mai_onsyn.dobot.robot.hand
+package cius.mai_onsyn.dobot.core.robot.hand
 
 data class HandFinger(
     val thumb: Int,

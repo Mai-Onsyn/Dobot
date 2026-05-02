@@ -1,8 +1,7 @@
 package cius.mai_onsyn.dobot.core.api.socket
 
 import cius.mai_onsyn.dobot.core.api.splitTopLevel
-import cius.mai_onsyn.dobot.robot.arm.RobotError
-import kotlin.text.iterator
+import cius.mai_onsyn.dobot.core.robot.arm.RobotError
 
 data class RobotResponse(
     val refID: RobotError,

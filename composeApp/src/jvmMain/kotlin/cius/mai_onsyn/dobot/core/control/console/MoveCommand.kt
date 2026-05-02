@@ -1,8 +1,8 @@
-package cius.mai_onsyn.dobot.control.console
+package cius.mai_onsyn.dobot.core.control.console
 
 import cius.mai_onsyn.dobot.core.api.robot.DobotE6V4
-import cius.mai_onsyn.dobot.robot.arm.Coordinate
-import cius.mai_onsyn.dobot.robot.arm.Joint
+import cius.mai_onsyn.dobot.core.robot.arm.Coordinate
+import cius.mai_onsyn.dobot.core.robot.arm.Joint
 
 class MovJCommand(private val api: DobotE6V4): Command {
     override val name = "movj"

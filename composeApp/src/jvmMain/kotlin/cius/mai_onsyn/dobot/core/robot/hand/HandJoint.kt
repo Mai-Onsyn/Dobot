@@ -1,4 +1,4 @@
-package cius.mai_onsyn.dobot.robot.hand
+package cius.mai_onsyn.dobot.core.robot.hand
 
 data class HandJoint(
     val thumbPitch: Int,
@@ -55,5 +55,16 @@ data class HandJoint(
         fun byIntArray(joints: IntArray): HandJoint {
             return HandJoint(joints[0], joints[1], joints[2], joints[3], joints[4], joints[5], joints[6])
         }
+    }
+
+    override fun hashCode(): Int {
+        var result = thumbPitch
+        result = 31 * result + thumbYaw
+        result = 31 * result + finger1
+        result = 31 * result + finger2
+        result = 31 * result + finger3
+        result = 31 * result + finger4
+        result = 31 * result + thumbRoll
+        return result
     }
 }

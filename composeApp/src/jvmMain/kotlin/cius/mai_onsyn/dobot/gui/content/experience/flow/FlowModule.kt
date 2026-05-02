@@ -19,6 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cius.mai_onsyn.dobot.gui.GLOBAL_PADDING
+import cius.mai_onsyn.dobot.gui.currentExperimentName
+import cius.mai_onsyn.dobot.gui.currentStep
 import cius.mai_onsyn.dobot.gui.util.universal_module.CardBase
 import dobot.composeapp.generated.resources.Res
 import dobot.composeapp.generated.resources.icon_list
@@ -58,8 +60,8 @@ fun FlowModule(
             Spacer(modifier = Modifier.height(12.dp))
 
             FlowGraph(
-                items = listOf("初始化", "姿势准备", "移动烧杯", "蘸取滴定", "记录结果", "结束清理"),
-                current = 2,
+                items = currentExperimentName,//listOf("初始化", "姿势准备", "移动烧杯", "蘸取滴定", "记录结果", "结束清理"),
+                current = currentStep,
                 modifier = Modifier.fillMaxSize()
             )
         }

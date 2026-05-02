@@ -1,4 +1,4 @@
-package cius.mai_onsyn.dobot.control.console
+package cius.mai_onsyn.dobot.core.control.console
 
 import cius.mai_onsyn.dobot.core.api.robot.DobotE6V4
 import cius.mai_onsyn.dobot.log

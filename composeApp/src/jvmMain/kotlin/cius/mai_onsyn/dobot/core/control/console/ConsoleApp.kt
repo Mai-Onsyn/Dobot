@@ -1,4 +1,4 @@
-package cius.mai_onsyn.dobot.control.console
+package cius.mai_onsyn.dobot.core.control.console
 
 import cius.mai_onsyn.dobot.core.api.API
 import cius.mai_onsyn.dobot.log
@@ -19,14 +19,16 @@ class ConsoleApp(
         "record" to RecordCommand(api.robotApi),
         "bot" to BotCommand(api.robotApi),
         "reset" to ResetCommand(api.robotApi),
+        "sleep" to SleepCommand(),
+        "titration" to ExperimentDropCommand(api, this)
     )
 
     fun run() {
         val scanner = Scanner(System.`in`)
         log.info("DobotE6V4控制台已启动")
         log.info("输入 'exit' 退出")
-        commands["bot"]?.execute(listOf("connect"))
-        commands["bot"]?.execute(listOf("setup"))
+//        commands["bot"]?.execute(listOf("connect"))
+//        commands["bot"]?.execute(listOf("setup"))
         while (true) {
             if (scanner.hasNextLine()) {
                 val line = scanner.nextLine().split(" ")
@@ -55,6 +57,7 @@ class ConsoleApp(
 
     fun executeLine(lineInput: String) {
         if (lineInput.isBlank()) return
+        log.info("正在执行命令：$lineInput")
 
         val parts = lineInput.trim().split("\\s+".toRegex())
         val cmdName = parts[0]
