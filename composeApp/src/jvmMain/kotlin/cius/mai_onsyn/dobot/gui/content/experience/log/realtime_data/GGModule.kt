@@ -12,9 +12,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import cius.mai_onsyn.dobot.gui.ROUND_CORNER_SHAPE
 import dobot.composeapp.generated.resources.Res
 import dobot.composeapp.generated.resources.icon_angle
@@ -68,7 +70,7 @@ fun MonitoringDashboard(data: MonitorData, modifier: Modifier = Modifier) {
 
         item {
             MonitorCard("核心指标", Res.drawable.icon_core_status) {
-                MetricRow("色蕴指标", "%.2f".format(data.colorIndex), "SI")
+                MetricRow("色晕指标", "%.2f".format(data.colorIndex), "SI")
                 MetricRow("置信度", "%.1f%%".format(data.confidence * 100), "")
                 LinearProgressIndicator(
                     progress = { data.confidence },
@@ -81,22 +83,47 @@ fun MonitoringDashboard(data: MonitorData, modifier: Modifier = Modifier) {
 
         item {
             MonitorCard("实验结果", Res.drawable.icon_exp_res) {
-                MetricRow("泥土含量", "%.2f%%".format(data.soilContent), "")
-                Spacer(modifier = Modifier.height(8.dp))
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(32.dp)
-                        .clip(RoundedCornerShape(4.dp))
-                        .background(MaterialTheme.colorScheme.surfaceVariant)
+                Spacer(modifier = Modifier.height(20.dp))
+                MetricRow("第4轮滴定", "", "")
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+//                    modifier = Modifier.height(100.dp)
                 ) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth(data.soilContent / 100f)
-                            .fillMaxHeight()
-                            .background(MaterialTheme.colorScheme.primary)
+                    Text(
+                        text = "MB值",
+                        fontSize = 20.sp,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+                    Text(
+                        text = "%.2f".format(data.soilContent),
+                        fontSize = 16.sp,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+                    Text(
+                        text = "g/kg",
+                        fontSize = 12.sp,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
+                Spacer(modifier = Modifier.height(20.dp))
+//                MetricRow("MB值", "%.2f%%".format(data.soilContent), "")
+//                Spacer(modifier = Modifier.height(8.dp))
+//                Box(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .height(32.dp)
+//                        .clip(RoundedCornerShape(4.dp))
+//                        .background(MaterialTheme.colorScheme.surfaceVariant)
+//                ) {
+//                    Box(
+//                        modifier = Modifier
+//                            .fillMaxWidth(data.soilContent / 100f)
+//                            .fillMaxHeight()
+//                            .background(MaterialTheme.colorScheme.primary)
+//                    )
+//                }
             }
         }
 

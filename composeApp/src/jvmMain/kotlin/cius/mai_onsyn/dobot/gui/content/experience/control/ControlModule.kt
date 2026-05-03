@@ -208,6 +208,9 @@ fun ControlModule(
                             currentStartTime = System.currentTimeMillis()
                         }
                     }
+//                    LaunchedEffect(currentStep) {
+//                        currentStartTime -= 37000
+//                    }
                     Text(
                         text = "已用时间: ${formatMillisToTime(timePassed)}",
                         color = colorScheme.onSurface,

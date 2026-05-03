@@ -1,11 +1,11 @@
-package cius.mai_onsyn.dobot.core.api.pump
+package cius.mai_onsyn.dobot.core.api.serial.pump
 
 import cius.mai_onsyn.dobot.log
 
 class PumpApi(
     private val connection: PumpConnection
 ) {
-    fun connect(): Boolean = connection.connect()
+    fun connect(com: String): Boolean = connection.connect(com)
 
     fun disconnect() = connection.disconnect()
 

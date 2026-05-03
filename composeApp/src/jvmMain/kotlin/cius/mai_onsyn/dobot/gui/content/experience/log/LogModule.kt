@@ -241,10 +241,10 @@ fun LogModule(
                     }
                     1 -> MonitoringDashboard(
                         MonitorData(
-                            soilContent = 63.4f,
+                            soilContent = 1.12f,
                             trajectoryCount = 12,
                             loopCount = 4,
-                            runningTime = "6分钟",
+                            runningTime = "5分钟",
                             colorIndex = 78f,
                             confidence = 0.9284f,
                             robotPos = Triple(132.3f, -0.2f, 32.1f),

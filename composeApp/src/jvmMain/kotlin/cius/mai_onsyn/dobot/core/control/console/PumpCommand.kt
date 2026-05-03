@@ -1,6 +1,6 @@
 package cius.mai_onsyn.dobot.core.control.console
 
-import cius.mai_onsyn.dobot.core.api.pump.PumpApi
+import cius.mai_onsyn.dobot.core.api.serial.pump.PumpApi
 import cius.mai_onsyn.dobot.log
 
 class PumpCommand(
@@ -14,7 +14,7 @@ class PumpCommand(
             "status" -> log.info(api.status())
             "enable" -> api.enable()
             "disable" -> api.disable()
-            "connect" -> log.info("串口初始化：${if (api.connect()) "success" else "failed"}")
+            "connect" -> log.info("串口初始化：${if (api.connect(args[1])) "success" else "failed"}")
             "close" -> api.disconnect()
             "stop" -> api.stop()
             "speed" -> api.setSpeed(args[1].toInt())

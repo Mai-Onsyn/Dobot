@@ -20,7 +20,8 @@ class ConsoleApp(
         "bot" to BotCommand(api.robotApi),
         "reset" to ResetCommand(api.robotApi),
         "sleep" to SleepCommand(),
-        "titration" to ExperimentDropCommand(api, this)
+        "titration" to ExperimentDropCommand(api, this),
+        "lift" to LiftCommand(api.liftApi)
     )
 
     fun run() {
@@ -57,22 +58,24 @@ class ConsoleApp(
 
     fun executeLine(lineInput: String) {
         if (lineInput.isBlank()) return
-        log.info("正在执行命令：$lineInput")
+        if (!lineInput.startsWith("sleep")) log.info("正在执行命令：$lineInput")
 
-        val parts = lineInput.trim().split("\\s+".toRegex())
-        val cmdName = parts[0]
-        val args = parts.drop(1)
+        if (lineInput.startsWith("sleep")) {
+            val parts = lineInput.trim().split("\\s+".toRegex())
+            val cmdName = parts[0]
+            val args = parts.drop(1)
 
-        val command = commands[cmdName]
-        if (command == null) {
-            log.error("未知命令: $cmdName")
-            return
-        }
+            val command = commands[cmdName]
+            if (command == null) {
+                log.error("未知命令: $cmdName")
+                return
+            }
 
-        try {
-            command.execute(args)
-        } catch (e: Exception) {
-            log.error("命令执行失败: ${e.message}")
+            try {
+                command.execute(args)
+            } catch (e: Exception) {
+                log.error("命令执行失败: ${e.message}")
+            }
         }
     }
 }

@@ -1,10 +1,10 @@
-package cius.mai_onsyn.dobot.core.api.pump
+package cius.mai_onsyn.dobot.core.api.serial
 
 import cius.mai_onsyn.dobot.log
 import com.fazecast.jSerialComm.SerialPort
 import com.fazecast.jSerialComm.SerialPortDataListener
 import com.fazecast.jSerialComm.SerialPortEvent
-import java.util.*
+import java.util.Scanner
 
 open class SerialConnection {
     companion object {
