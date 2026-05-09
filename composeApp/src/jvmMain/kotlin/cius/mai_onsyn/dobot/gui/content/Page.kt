@@ -16,10 +16,10 @@ enum class Page(
     val content: @Composable () -> Unit,
     val icon: DrawableResource
 ) {
-    WELCOME("Welcome", { WelcomePage() }, Res.drawable.icon_welcome),
+    EXPERIENCE("实验", { ExperiencePage() }, Res.drawable.icon_experiment),
+//    WELCOME("Welcome", { WelcomePage() }, Res.drawable.icon_welcome),
     MONITOR("监控", { MonitorPage() }, Res.drawable.icon_monitor),
     ADJUST("运动", { AdjustPage() }, Res.drawable.icon_move),
     TRAJECTORY("轨迹", { TrajectoryPage() }, Res.drawable.icon_traj),
-    EXPERIENCE("实验", { ExperiencePage() }, Res.drawable.icon_experiment),
     SETTINGS("设置", { SettingsPage() }, Res.drawable.icon_settings)
 }

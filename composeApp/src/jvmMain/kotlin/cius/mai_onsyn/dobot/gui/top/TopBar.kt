@@ -48,7 +48,7 @@ fun TopBar(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxHeight()
-                .align(Alignment.CenterEnd)
+                .align(Alignment.CenterStart)
         ) {
             Button(
                 colors = ButtonDefaults.buttonColors(
