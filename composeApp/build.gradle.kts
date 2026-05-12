@@ -68,6 +68,6 @@ compose.desktop {
 
 tasks.withType<JavaExec>().configureEach {
     standardInput = System.`in`
-    // 强制禁用输出缓冲，确保 Scanner 的提示语能即时显示
-    systemProperty("io.netty.leakDetection.level", "PARANOID") // 可选：仅示例
+    systemProperty("io.netty.leakDetection.level", "PARANOID")
+    workingDir = rootProject.projectDir
 }
