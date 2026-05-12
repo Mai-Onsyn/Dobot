@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.times
 import cius.mai_onsyn.dobot.gui.BLUE_COLOR
 import cius.mai_onsyn.dobot.gui.GREEN_COLOR
+import cius.mai_onsyn.dobot.gui.ROUND_CORNER_SHAPE
 import cius.mai_onsyn.dobot.gui.WHITE_COLOR
 import dobot.composeapp.generated.resources.Res
 import dobot.composeapp.generated.resources.icon_complete
@@ -73,7 +74,7 @@ fun FlowGraph(
         items.forEachIndexed { index, item ->
             Box(
                 modifier = Modifier
-                    .clip(RoundedCornerShape(8.dp))
+                    .clip(ROUND_CORNER_SHAPE)
                     .height(itemHeight)
                     .fillMaxWidth()
                     .then(if (index == current) Modifier.background(currentColor.copy(0.2f)) else Modifier)

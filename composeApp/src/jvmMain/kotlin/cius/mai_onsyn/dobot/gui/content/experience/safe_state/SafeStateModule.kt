@@ -11,7 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import cius.mai_onsyn.dobot.gui.util.universal_module.CardBase
+import cius.mai_onsyn.dobot.gui.util.universal_module.layout.CardBase
 import dobot.composeapp.generated.resources.Res
 import dobot.composeapp.generated.resources.icon_safe_state
 import org.jetbrains.compose.resources.painterResource

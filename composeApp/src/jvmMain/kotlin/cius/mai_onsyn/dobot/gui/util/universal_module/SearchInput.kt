@@ -1,4 +1,4 @@
-package cius.mai_onsyn.dobot.gui.content.experience.log
+package cius.mai_onsyn.dobot.gui.util.universal_module
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -16,13 +16,18 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cius.mai_onsyn.dobot.gui.ROUND_CORNER_RADIUS
+import cius.mai_onsyn.dobot.gui.ROUND_CORNER_SHAPE
+import cius.mai_onsyn.dobot.gui.ROUND_SMALL_CORNER_SHAPE
 import dobot.composeapp.generated.resources.Res
 import dobot.composeapp.generated.resources.icon_search
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun SearchInput(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    prompt: String = "",
+    onTextChange: (String) -> Unit = {},
 ) {
     val colorScheme = MaterialTheme.colorScheme
 
@@ -30,13 +35,16 @@ fun SearchInput(
         .border(
             width = 1.dp,
             color = colorScheme.outline.copy(0.2f),
-            shape = RoundedCornerShape(8.dp)
+            shape = ROUND_SMALL_CORNER_SHAPE
         )
-        .clip(RoundedCornerShape(8.dp))
-        .background(colorScheme.surfaceContainerHigh)
+        .clip(ROUND_SMALL_CORNER_SHAPE)
+        .background(colorScheme.surface)
     ) {
 
         var text by remember { mutableStateOf("") }
+        LaunchedEffect(text) {
+            onTextChange(text)
+        }
 
         BasicTextField(
             modifier = Modifier
@@ -60,7 +68,7 @@ fun SearchInput(
                         modifier = Modifier
                             .size(18.dp)
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width(4.dp))
                     Box(
                         modifier = Modifier
                             .fillMaxSize(),
@@ -68,7 +76,7 @@ fun SearchInput(
                     ) {
                         if (text.isEmpty()) {
                             Text(
-                                text = "搜索日志...",
+                                text = prompt,
                                 color = colorScheme.onSurfaceVariant,
                                 fontSize = 13.sp
                             )

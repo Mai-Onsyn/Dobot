@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cius.mai_onsyn.dobot.gui.GLOBAL_PADDING
 import cius.mai_onsyn.dobot.gui.util.Config.armStep
-import cius.mai_onsyn.dobot.gui.util.universal_module.CardBase
+import cius.mai_onsyn.dobot.gui.util.universal_module.layout.CardBase
 import cius.mai_onsyn.dobot.gui.util.universal_module.LabeledItem
 import cius.mai_onsyn.dobot.gui.util.universal_module.PointSnapSlider
 import cius.mai_onsyn.dobot.gui.util.universal_module.SliderWithInput

@@ -7,8 +7,10 @@ import java.text.SimpleDateFormat
 
 val ROUND_CORNER_RADIUS = 8.dp
 val ROUND_CORNER_SHAPE = RoundedCornerShape(ROUND_CORNER_RADIUS)
+val ROUND_SMALL_CORNER_SHAPE = RoundedCornerShape(4.dp)
 
 val GLOBAL_PADDING = 12.dp
+val GLOBAL_PADDING_HALF = 6.dp
 
 val GREEN_COLOR = Color(62, 166, 93)
 val BLUE_COLOR = Color(57, 118, 229)

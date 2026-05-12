@@ -1,13 +1,10 @@
 package cius.mai_onsyn.dobot.gui.content.experience.connect
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -20,11 +17,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import cius.mai_onsyn.dobot.gui.ROUND_CORNER_SHAPE
-import cius.mai_onsyn.dobot.gui.util.universal_module.CardBase
+import cius.mai_onsyn.dobot.gui.util.universal_module.layout.CardBase
 import dobot.composeapp.generated.resources.Res
 import dobot.composeapp.generated.resources.icon_arm
 import dobot.composeapp.generated.resources.icon_camera

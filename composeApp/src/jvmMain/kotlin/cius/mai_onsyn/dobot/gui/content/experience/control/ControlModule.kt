@@ -28,7 +28,7 @@ import cius.mai_onsyn.dobot.gui.content.experience.info.onStop
 import cius.mai_onsyn.dobot.gui.util.formatMillisToTime
 import cius.mai_onsyn.dobot.gui.util.tweenSpecColor
 import cius.mai_onsyn.dobot.gui.util.tweenSpecFloat
-import cius.mai_onsyn.dobot.gui.util.universal_module.CardBase
+import cius.mai_onsyn.dobot.gui.util.universal_module.layout.CardBase
 import dobot.composeapp.generated.resources.Res
 import dobot.composeapp.generated.resources.icon_experiment
 import dobot.composeapp.generated.resources.icon_reset

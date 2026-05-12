@@ -1,4 +1,4 @@
-package cius.mai_onsyn.dobot.gui.content.experience.log
+package cius.mai_onsyn.dobot.gui.util.universal_module
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -19,6 +19,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cius.mai_onsyn.dobot.gui.ROUND_CORNER_SHAPE
+import cius.mai_onsyn.dobot.gui.ROUND_SMALL_CORNER_SHAPE
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
@@ -35,14 +36,14 @@ fun ButtonWithIcon(
             contentColor = MaterialTheme.colorScheme.onSurface
         ),
         contentPadding = PaddingValues(0.dp),
-        shape = ROUND_CORNER_SHAPE,
+        shape = ROUND_SMALL_CORNER_SHAPE,
         modifier = modifier
     ) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .border(
-                    shape = ROUND_CORNER_SHAPE,
+                    shape = ROUND_SMALL_CORNER_SHAPE,
                     width = 1.dp,
                     color = MaterialTheme.colorScheme.outline.copy(0.2f)
                 ),
@@ -68,6 +69,43 @@ fun ButtonWithIcon(
                     overflow = TextOverflow.Ellipsis
                 )
             }
+        }
+    }
+}
+
+
+@Composable
+fun ButtonWithIcon(
+    icon: DrawableResource,
+    modifier: Modifier = Modifier
+) {
+    Button(
+        onClick = {},
+        colors = ButtonDefaults.buttonColors(
+            containerColor = MaterialTheme.colorScheme.surfaceContainer,
+            contentColor = MaterialTheme.colorScheme.onSurface
+        ),
+        contentPadding = PaddingValues(0.dp),
+        shape = ROUND_SMALL_CORNER_SHAPE,
+        modifier = modifier
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .border(
+                    shape = ROUND_SMALL_CORNER_SHAPE,
+                    width = 1.dp,
+                    color = MaterialTheme.colorScheme.outline.copy(0.2f)
+                ),
+        ) {
+            Icon(
+                painter = painterResource(icon),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier
+                    .size(18.dp)
+                    .align(Alignment.Center)
+            )
         }
     }
 }

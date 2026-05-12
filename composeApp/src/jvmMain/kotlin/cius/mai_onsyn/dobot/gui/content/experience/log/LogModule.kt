@@ -4,7 +4,6 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideIn
-import androidx.compose.animation.slideOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -24,8 +23,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,8 +36,9 @@ import cius.mai_onsyn.dobot.gui.ROUND_CORNER_SHAPE
 import cius.mai_onsyn.dobot.gui.content.experience.log.realtime_data.MonitorData
 import cius.mai_onsyn.dobot.gui.content.experience.log.realtime_data.MonitoringDashboard
 import cius.mai_onsyn.dobot.gui.util.tweenSpecFloat
-import cius.mai_onsyn.dobot.gui.util.universal_module.CardBase
-import cius.mai_onsyn.dobot.log
+import cius.mai_onsyn.dobot.gui.util.universal_module.ButtonWithIcon
+import cius.mai_onsyn.dobot.gui.util.universal_module.layout.CardBase
+import cius.mai_onsyn.dobot.gui.util.universal_module.SearchInput
 import dobot.composeapp.generated.resources.Res
 import dobot.composeapp.generated.resources.icon_dustbin
 import dobot.composeapp.generated.resources.icon_export
@@ -158,6 +156,7 @@ fun LogModule(
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         SearchInput(
+                            prompt = "搜索日志...",
                             modifier = Modifier
                                 .width(180.dp)
                                 .fillMaxHeight()

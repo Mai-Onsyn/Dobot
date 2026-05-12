@@ -1,6 +1,5 @@
 package cius.mai_onsyn.dobot.gui.content.experience
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -9,13 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import cius.mai_onsyn.dobot.gui.GLOBAL_PADDING
 import cius.mai_onsyn.dobot.gui.content.experience.connect.ConnectModule
 import cius.mai_onsyn.dobot.gui.content.experience.control.ControlModule
@@ -24,7 +18,6 @@ import cius.mai_onsyn.dobot.gui.content.experience.info.InfoModule
 import cius.mai_onsyn.dobot.gui.content.experience.log.LogModule
 import cius.mai_onsyn.dobot.gui.content.experience.safe_state.SafeStateModule
 import cius.mai_onsyn.dobot.gui.content.experience.sys_state.SysStateModule
-import cius.mai_onsyn.dobot.gui.util.universal_module.CardBase
 
 @Composable
 fun ExperiencePage() {
