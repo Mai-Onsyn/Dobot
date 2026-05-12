@@ -4,6 +4,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import cius.mai_onsyn.dobot.gui.GLOBAL_PADDING
+import cius.mai_onsyn.dobot.gui.content.trajectory.detail.DetailModule
+import cius.mai_onsyn.dobot.gui.content.trajectory.file.FileModule
+import cius.mai_onsyn.dobot.gui.content.trajectory.operation.OperationModule
+import cius.mai_onsyn.dobot.gui.content.trajectory.points.PointsModule
+import cius.mai_onsyn.dobot.gui.content.trajectory.replay.ReplayModule
 
 @Composable
 fun TrajectoryPage() {
