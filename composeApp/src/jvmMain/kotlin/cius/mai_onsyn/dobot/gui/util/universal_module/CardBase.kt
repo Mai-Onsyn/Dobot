@@ -20,7 +20,7 @@ fun CardBase(
     val colorScheme = MaterialTheme.colorScheme
     Box(
         modifier = modifier
-            .clip(RoundedCornerShape(12.dp))
+            .clip(RoundedCornerShape(8.dp))
             .background(
                 baseColor = colorScheme.surfaceContainer,
                 hoverColor = colorScheme.surfaceContainerHigh,

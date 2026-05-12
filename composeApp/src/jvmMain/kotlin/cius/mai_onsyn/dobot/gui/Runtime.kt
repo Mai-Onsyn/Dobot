@@ -7,7 +7,7 @@ import androidx.compose.runtime.setValue
 import cius.mai_onsyn.dobot.core.experience.Experiment
 import cius.mai_onsyn.dobot.gui.content.Page
 
-var currentPage by mutableStateOf(Page.EXPERIENCE)
+var currentPage by mutableStateOf(Page.TRAJECTORY)
 var experimenting by mutableStateOf(false)
 var expProgress by mutableStateOf(0.4f)
 

@@ -1,13 +1,11 @@
 package cius.mai_onsyn.dobot.gui.content
 
 import androidx.compose.runtime.Composable
-import cius.mai_onsyn.dobot.gui.content.movement.AdjustPage
 import cius.mai_onsyn.dobot.gui.content.experience.ExperiencePage
 import cius.mai_onsyn.dobot.gui.content.monitor.MonitorPage
+import cius.mai_onsyn.dobot.gui.content.movement.AdjustPage
 import cius.mai_onsyn.dobot.gui.content.settings.SettingsPage
 import cius.mai_onsyn.dobot.gui.content.trajectory.TrajectoryPage
-import cius.mai_onsyn.dobot.gui.content.welcome.WelcomePage
-import dobot.composeapp.generated.resources.Res
 import dobot.composeapp.generated.resources.*
 import org.jetbrains.compose.resources.DrawableResource
 
