@@ -26,7 +26,7 @@ fun TrajectoryPage() {
 
             Spacer(Modifier.height(GLOBAL_PADDING))
 
-            OperationModule(Modifier.weight(1f).fillMaxWidth())
+            OperationModule(Modifier.weight(0.5f).fillMaxWidth())
 
             Spacer(Modifier.height(GLOBAL_PADDING))
 
