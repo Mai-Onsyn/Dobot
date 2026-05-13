@@ -7,11 +7,14 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
@@ -31,47 +34,39 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun DeviceStatusLabel(
+fun OperationButton(
     name: String,
-    icon: DrawableResource,
-    isConnected: Boolean = true,
+    icon: DrawableResource? = null ,
     modifier: Modifier = Modifier
 ) {
-    val statusText = if (isConnected) "已连接" else "未连接"
-    val statusColor = if (isConnected) GREEN_COLOR else RED_COLOR
-    Box(
+    Button(
+        onClick = { },
         modifier = modifier
-            .background(
-                color = MaterialTheme.colorScheme.surfaceContainerLow,
-                shape = ROUND_CORNER_SHAPE
-            )
-            .border(width = 1.dp, color = MaterialTheme.colorScheme.outline.copy(0.2f), shape = ROUND_CORNER_SHAPE)
-            .padding(horizontal = 12.dp),
-        contentAlignment = Alignment.CenterStart
+            .fillMaxWidth(),
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = MaterialTheme.colorScheme.surfaceContainerLow,
+            contentColor = MaterialTheme.colorScheme.onSurface
+        ),
+        shape = ROUND_CORNER_SHAPE,
     ) {
         Row(
-           verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                painter = painterResource(icon),
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.size(18.dp)
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(text= name,
-                modifier = Modifier,
-                color=MaterialTheme.colorScheme.onSurface)
-            Spacer(modifier = Modifier.weight(1.5f))
-            Box(
-                modifier = Modifier
-                    .size(10.dp)
-//                    .offset(y=5.dp)
-                    .background(statusColor, CircleShape)
-            )
-            Spacer(modifier = Modifier.weight(0.1f))
-            Text(text=statusText,color=statusColor)
-        }
+            if (icon!=null){
+                Icon(
+                    painter = painterResource(icon),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.size(18.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+            }
 
+            Text(
+                text = name,
+                modifier = Modifier,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+        }
     }
 }
