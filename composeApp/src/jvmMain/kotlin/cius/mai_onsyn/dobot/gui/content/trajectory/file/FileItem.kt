@@ -86,14 +86,18 @@ fun FileItem(
         var buttonHovered by remember { mutableStateOf(false) }
         val density = LocalDensity.current
         var buttonRect by remember { mutableStateOf(IntRect.Zero) }
+        var copyProgress by remember { mutableStateOf(0f) }
         val popupShowProgress by animateFloatAsState(
             targetValue = if (buttonHovered) 1f else 0f,
             animationSpec = tween(
                 durationMillis = 300,
-                delayMillis = 300,
+                delayMillis = if (copyProgress == 0f || copyProgress == 1f) 300 else 0,
                 easing = FastOutSlowInEasing
             )
         )
+        LaunchedEffect(popupShowProgress) {
+            copyProgress = popupShowProgress
+        }
         GenericButton(
             modifier = Modifier
                 .size(HEIGHT * 0.7f)

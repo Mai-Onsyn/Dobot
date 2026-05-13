@@ -34,6 +34,7 @@ kotlin {
             implementation("org.apache.logging.log4j:log4j-core:2.25.3")
             implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.25.3")
             implementation("com.fazecast:jSerialComm:2.11.4")
+            implementation(files("libs/MvCameraControlWrapper.jar"))
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -58,6 +59,7 @@ compose.desktop {
 
         jvmArgs += listOf(
             "-Duser.dir=${rootProject.projectDir.absolutePath}",
+            "-Djava.library.path=C:\\Program Files (x86)\\Common Files\\MVS\\Runtime\\Win64_x64",
             "-Dfile.encoding=UTF-8",
             "-Dsun.stdout.encoding=UTF-8",
             "-Dsun.stderr.encoding=UTF-8",
@@ -71,3 +73,11 @@ tasks.withType<JavaExec>().configureEach {
     systemProperty("io.netty.leakDetection.level", "PARANOID")
     workingDir = rootProject.projectDir
 }
+
+//tasks.withType<JavaExec> {
+//    environment(
+//        "PATH",
+//        "C:\\Program Files (x86)\\Common Files\\MVS\\Runtime\\Win64_x64;" +
+//                System.getenv("PATH")
+//    )
+//}
