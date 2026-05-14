@@ -25,7 +25,9 @@ import cius.mai_onsyn.dobot.gui.util.tweenSpecColor
 import cius.mai_onsyn.dobot.gui.util.universal_module.GenericButton
 import cius.mai_onsyn.dobot.gui.util.universal_module.PopupContextItem
 import cius.mai_onsyn.dobot.gui.util.universal_module.layout.AttachedPopup
+import cius.mai_onsyn.dobot.log
 import com.alibaba.fastjson2.JSONArray
+import java.awt.Desktop
 import java.io.File
 import java.nio.file.Files
 import kotlin.math.roundToInt
@@ -33,11 +35,11 @@ import kotlin.math.roundToInt
 @Composable
 fun FileItem(
     modifier: Modifier = Modifier,
-    filePath: String,
+    fileName: String,
     selected: Boolean = false,
     onSelect: (String) -> Unit = {}
 ) {
-    val file = File(filePath)
+    val file = File("${TrajectoryFileManager.workingDir}/$fileName")
     if (!file.exists()) return
     val json = JSONArray.parseArray(Files.readString(file.toPath()))
     val background by animateColorAsState(
@@ -54,7 +56,7 @@ fun FileItem(
             )
             .padding(horizontal = GLOBAL_PADDING)
             .interaction(
-                onClick = { onSelect(filePath) },
+                onClick = { onSelect(fileName) },
             )
     ) {
         val contentColor by animateColorAsState(
@@ -142,6 +144,31 @@ fun FileItem(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(HEIGHT)
+                            .interaction(
+                                onClick = {
+                                    try {
+                                        Desktop.getDesktop().browseFileDirectory(file)
+                                    } catch (_: Exception) {
+                                        val command = when {
+                                            System.getProperty("os.name").contains("win", ignoreCase = true) ->
+                                                listOf("explorer.exe", "/select,", file.absolutePath)
+                                            System.getProperty("os.name").contains("mac", ignoreCase = true) ->
+                                                listOf("open", "-R", file.absolutePath)
+                                            else ->
+                                                listOf("xdg-open", file.parentFile.absolutePath)
+                                        }
+                                        try {
+                                            ProcessBuilder(command).start()
+                                        } catch (_: Exception) {
+                                            try {
+                                                Desktop.getDesktop().open(file.parentFile)
+                                            } catch (e: Exception) {
+                                                log.error("Failed to open file: $file", e)
+                                            }
+                                        }
+                                    }
+                                }
+                            )
                     )
                     PopupContextItem(
                         text = "删除",
@@ -149,6 +176,17 @@ fun FileItem(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(HEIGHT)
+                            .interaction(
+                                onClick = {
+                                    if (file.exists()) {
+                                        file.delete()
+                                    }
+                                    TrajectoryFileManager.update()
+                                    if (fileName == TrajectoryFileManager.selectedFile)
+                                        TrajectoryFileManager.reselect()
+                                    buttonHovered = false
+                                }
+                            )
                     )
                 }
             }

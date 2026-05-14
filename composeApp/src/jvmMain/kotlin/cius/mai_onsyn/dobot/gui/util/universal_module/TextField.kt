@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,16 +33,17 @@ fun TextField(
     borderWidth: Dp = 0.dp,
     maxLines: Int = 1,
     paddingValues: PaddingValues = PaddingValues(horizontal = GLOBAL_PADDING_HALF),
-    textStyle: TextStyle = TextStyle(fontSize = 14.sp),
+    textStyle: TextStyle = TextStyle(fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurface),
+    contentColor: Color = MaterialTheme.colorScheme.onSurface,
     placeholder: @Composable (() -> Unit)? = null,
 ) {
     BasicTextField(
         value = value,
         onValueChange = onValueChange,
-        textStyle = textStyle,
+        textStyle = textStyle.copy(color = contentColor),
         singleLine = maxLines == 1,
         maxLines = maxLines,
-        cursorBrush = SolidColor(textStyle.color),
+        cursorBrush = SolidColor(contentColor),
         modifier = modifier
             .shadow(elevation = shadowElevation, ambientColor = Color.Black)
             .background(backgroundColor, shape)

@@ -27,7 +27,7 @@
     </Appenders>
 
     <Loggers>
-        <Root level="INFO">
+        <Root level="DEBUG">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="Compose"/>
 <!--            <AppenderRef ref="File"/>-->

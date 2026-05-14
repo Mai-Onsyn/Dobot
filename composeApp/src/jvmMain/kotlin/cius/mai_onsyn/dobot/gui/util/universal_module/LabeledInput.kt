@@ -1,10 +1,9 @@
-package cius.mai_onsyn.dobot.gui.util.universal_module.layout
+package cius.mai_onsyn.dobot.gui.util.universal_module
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,7 +15,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cius.mai_onsyn.dobot.gui.GLOBAL_PADDING
 import cius.mai_onsyn.dobot.gui.ROUND_SMALL_CORNER_SHAPE
-import cius.mai_onsyn.dobot.gui.util.universal_module.TextField
 
 @Composable
 fun LabeledInput(
