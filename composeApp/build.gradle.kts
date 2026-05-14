@@ -34,6 +34,8 @@ kotlin {
             implementation("org.apache.logging.log4j:log4j-core:2.25.3")
             implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.25.3")
             implementation("com.fazecast:jSerialComm:2.11.4")
+            implementation("io.ktor:ktor-client-core:3.4.1")
+            implementation("io.ktor:ktor-client-cio:3.4.1")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

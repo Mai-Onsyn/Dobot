@@ -30,6 +30,7 @@ import cius.mai_onsyn.dobot.gui.GREEN_COLOR
 import cius.mai_onsyn.dobot.gui.RED_COLOR
 import cius.mai_onsyn.dobot.gui.ROUND_CORNER_SHAPE
 import cius.mai_onsyn.dobot.gui.util.background
+import cius.mai_onsyn.dobot.gui.util.universal_module.GenericButton
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
@@ -39,14 +40,10 @@ fun OperationButton(
     icon: DrawableResource? = null ,
     modifier: Modifier = Modifier
 ) {
-    Button(
-        onClick = { },
-        modifier = modifier
-            .fillMaxWidth(),
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor = MaterialTheme.colorScheme.surfaceContainerLow,
-            contentColor = MaterialTheme.colorScheme.onSurface
-        ),
+
+    GenericButton(
+        modifier = modifier.fillMaxWidth(),
+        backgroundColor = MaterialTheme.colorScheme.surfaceContainerLow,
         shape = ROUND_CORNER_SHAPE,
     ) {
         Row(
@@ -64,9 +61,21 @@ fun OperationButton(
 
             Text(
                 text = name,
-                modifier = Modifier,
                 color = MaterialTheme.colorScheme.onSurface
             )
         }
     }
+
+//    Button(
+//        onClick = { },
+//        modifier = modifier
+//            .fillMaxWidth(),
+//        colors = ButtonDefaults.buttonColors(
+//            backgroundColor = MaterialTheme.colorScheme.surfaceContainerLow,
+//            contentColor = MaterialTheme.colorScheme.onSurface
+//        ),
+//        shape = ROUND_CORNER_SHAPE,
+//    ) {
+//
+//    }
 }

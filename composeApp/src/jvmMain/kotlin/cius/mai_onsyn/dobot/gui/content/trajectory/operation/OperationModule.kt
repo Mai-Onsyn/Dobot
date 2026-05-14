@@ -36,10 +36,11 @@ import dobot.composeapp.generated.resources.icon_pump_b
 fun OperationModule(
     modifier: Modifier = Modifier
 ) {
-    CardBase(modifier = modifier) {
+    CardBase(modifier = modifier, fillMaxSize = false) {
         Column(
             modifier = Modifier
-                .fillMaxSize()
+                .wrapContentHeight()
+                .fillMaxWidth()
                 .padding(vertical = GLOBAL_PADDING),
         ){
             Text(
@@ -47,58 +48,24 @@ fun OperationModule(
                 style = TextStyle(fontWeight = FontWeight.Bold),
                 fontSize = 14.sp,
                 color = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.padding(horizontal = GLOBAL_PADDING)
+                modifier = Modifier.padding(horizontal = GLOBAL_PADDING).height(24.dp)
             )
             Spacer(modifier = Modifier.height(12.dp))
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .wrapContentHeight()
                     .verticalScroll(rememberScrollState())
                     .padding(horizontal = GLOBAL_PADDING)
             ){
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentHeight()
-                ){
-                    OperationButton(
-                        modifier = Modifier
-                            .weight(1f)
-                            .height(40.dp),
-                        name = "编辑",
-                        icon = Res.drawable.icon_pump_b
-                    )
-                    Spacer(modifier = Modifier.weight(0.1f))
-                    OperationButton(
-                        modifier = Modifier
-                                .weight(1f)
-                            .height(40.dp),
-                        name = "重置",
-                        icon = Res.drawable.icon_pump_b
-                    )
-                }
+
+                OperationRow("编辑","重置")
                 Spacer(modifier = Modifier.height(12.dp))
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentHeight()
-                ){
-                    OperationButton(
-                        modifier = Modifier
-                            .weight(1f)
-                            .height(40.dp),
-                        name = "上移",
-                        icon = Res.drawable.icon_pump_b
-                    )
-                    Spacer(modifier = Modifier.weight(0.1f))
-                    OperationButton(
-                        modifier = Modifier
-                            .weight(1f)
-                            .height(40.dp),
-                        name = "下移",
-                        icon = Res.drawable.icon_pump_b
-                    )
-                }
+                OperationRow("上移","下移")
+                Spacer(modifier = Modifier.height(12.dp))
+                OperationRow("翻转","记录当前点")
+                Spacer(modifier = Modifier.height(12.dp))
+                OperationRow("向上粘贴","向下粘贴")
                 Spacer(modifier = Modifier.height(12.dp))
             }
         }

@@ -15,7 +15,9 @@ import cius.mai_onsyn.dobot.gui.util.background
 @Composable
 fun CardBase(
     modifier: Modifier = Modifier,
+    fillMaxSize: Boolean = true,
     content: @Composable BoxScope.() -> Unit
+
 ) {
     val colorScheme = MaterialTheme.colorScheme
     Box(
@@ -32,7 +34,10 @@ fun CardBase(
                 pressedColor = colorScheme.surfaceContainerHigh
             )
     ) {
-        Box(modifier = Modifier.fillMaxSize()/*.padding(4.dp)*/) {
+        Box(modifier = Modifier
+            .then(
+                if (fillMaxSize) Modifier.fillMaxSize() else Modifier
+            )/*.padding(4.dp)*/) {
             content()
         }
     }

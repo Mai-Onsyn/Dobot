@@ -1,5 +1,6 @@
 package cius.mai_onsyn.dobot.gui.content.trajectory.file
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -7,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
@@ -16,10 +18,12 @@ import androidx.compose.ui.unit.sp
 import cius.mai_onsyn.dobot.gui.GLOBAL_PADDING
 import cius.mai_onsyn.dobot.gui.GLOBAL_PADDING_HALF
 import cius.mai_onsyn.dobot.gui.ROUND_CORNER_SHAPE
+import cius.mai_onsyn.dobot.gui.util.interaction
 import cius.mai_onsyn.dobot.gui.util.universal_module.ButtonWithIcon
 import cius.mai_onsyn.dobot.gui.util.universal_module.GenericButton
 import cius.mai_onsyn.dobot.gui.util.universal_module.layout.CardBase
 import cius.mai_onsyn.dobot.gui.util.universal_module.SearchInput
+import cius.mai_onsyn.dobot.gui.util.universal_module.layout.DialogPopup
 import dobot.composeapp.generated.resources.Res
 import dobot.composeapp.generated.resources.icon_reset
 import java.io.File
@@ -75,17 +79,25 @@ fun FileModule(
                 modifier = Modifier
                     .padding(GLOBAL_PADDING)
             ) {
+                var showNewDialog by remember { mutableStateOf(false) }
                 GenericButton(
                     backgroundColor = MaterialTheme.colorScheme.secondary,
                     shape = ROUND_CORNER_SHAPE,
                     modifier = Modifier
                         .height(56.dp)
                         .weight(1f)
+                        .interaction(
+                            onClick = { showNewDialog = true },
+                        )
                 ) {
                     Text(
                         text = "新建",
                         fontSize = 16.sp,
                         color = MaterialTheme.colorScheme.onSecondary,
+                    )
+                    NewDialog(
+                        visible = showNewDialog,
+                        onDismissRequest = { showNewDialog = false }
                     )
                 }
                 Spacer(Modifier.width(GLOBAL_PADDING))
@@ -122,6 +134,25 @@ object TrajectoryFileLoader {
                     files.add(file.absolutePath)
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun NewDialog(
+    visible: Boolean,
+    onDismissRequest: () -> Unit,
+) {
+    DialogPopup(
+        visible = visible,
+        onDismissRequest = onDismissRequest,
+    ) {
+        Box(
+            modifier = Modifier
+                .size(360.dp, 280.dp)
+                .background(MaterialTheme.colorScheme.surface)
+        ) {
+
         }
     }
 }
