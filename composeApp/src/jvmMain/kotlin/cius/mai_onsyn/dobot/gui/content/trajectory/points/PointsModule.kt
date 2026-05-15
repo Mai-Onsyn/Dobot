@@ -1,8 +1,12 @@
 package cius.mai_onsyn.dobot.gui.content.trajectory.points
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -10,10 +14,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import cius.mai_onsyn.dobot.core.trajectory.JointTrajectory
 import cius.mai_onsyn.dobot.gui.GLOBAL_PADDING
 import cius.mai_onsyn.dobot.gui.content.trajectory.file.TrajectoryFileManager
 import cius.mai_onsyn.dobot.gui.content.trajectory.points.TrajectoryPointsManager.file
@@ -27,9 +33,8 @@ fun PointsModule(
     CardBase(modifier = modifier) {
         LaunchedEffect(TrajectoryFileManager.selectedFile) {
             file = File("${TrajectoryFileManager.workingDir}/${TrajectoryFileManager.selectedFile}")
-            if (!file!!.exists() || !file!!.isFile) {
+            if (!file!!.exists() || !file!!.isFile || file!!.extension != "json") {
                 file = null
-                return@LaunchedEffect
             }
         }
         Column(
@@ -42,15 +47,26 @@ fun PointsModule(
                 color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.padding(GLOBAL_PADDING)
             )
+
+            if (file != null) {
+                PointTable(
+                    trajectory = JointTrajectory.load(file!!.absolutePath),
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth()
+//                        .background(Color.White)
+                )
+            }
+
+            Spacer(Modifier.height(GLOBAL_PADDING))
         }
-
-
-
-        Text(
-            text = "Points Module",
-            textAlign = TextAlign.Center,
-            color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.align(Alignment.Center)
-        )
+        if (file == null) {
+            Text(
+                text = "选择并打开一个文件",
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier.align(Alignment.Center)
+            )
+        }
     }
 }

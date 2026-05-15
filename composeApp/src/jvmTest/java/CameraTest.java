@@ -19,13 +19,14 @@ public class CameraTest {
         camera.awaitFrame(2000);
         for (int i = 0; i < 10; i++) {
             Thread.sleep(100);
-            BufferedImage img = camera.getBuffer().toBufferedImage();
-            ImageIO.write(img, "png", new File("D:/Users/Desktop/frame_" + i + ".png"));
+            BufferedImage img = camera.capture();
+            if (img != null) {
+                ImageIO.write(img, "png", new File("D:/Users/Desktop/frame_" + i + ".png"));
+            }
         }
 
         camera.stopGrabbing();
         camera.close();
-
 
         MvsCamera.Companion.finalized();
     }

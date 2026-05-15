@@ -6,5 +6,5 @@ import androidx.compose.runtime.setValue
 import java.io.File
 
 object TrajectoryPointsManager {
-    var file: File? by mutableStateOf(File(""))
+    var file: File? by mutableStateOf(null)
 }

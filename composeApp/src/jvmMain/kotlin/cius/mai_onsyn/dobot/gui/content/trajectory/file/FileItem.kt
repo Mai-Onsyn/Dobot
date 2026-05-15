@@ -17,6 +17,7 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.*
+import cius.mai_onsyn.dobot.core.trajectory.JointTrajectory
 import cius.mai_onsyn.dobot.gui.GLOBAL_PADDING
 import cius.mai_onsyn.dobot.gui.ROUND_SMALL_CORNER_SHAPE
 import cius.mai_onsyn.dobot.gui.util.buttonEffect
@@ -30,7 +31,6 @@ import cius.mai_onsyn.dobot.log
 import com.alibaba.fastjson2.JSONArray
 import java.awt.Desktop
 import java.io.File
-import java.io.IOException
 import java.nio.file.Files
 import kotlin.math.roundToInt
 
@@ -43,9 +43,9 @@ fun FileItem(
 ) {
     val file = File("${TrajectoryFileManager.workingDir}/$fileName")
     if (!file.exists() || file.extension != "json") return
-    val json: JSONArray
+    val traj: JointTrajectory
     try {
-         json = JSONArray.parseArray(Files.readString(file.toPath()))
+         traj = JointTrajectory.load(file.absolutePath)
     } catch (e: Exception) {
         log.warn("Unable to parse file $fileName because ${e.message}, skip")
         return
@@ -86,7 +86,7 @@ fun FileItem(
             )
             Text(
                 modifier = Modifier.weight(3f),
-                text = json.size.toString(),
+                text = traj.size.toString(),
                 fontSize = 12.sp,
                 color = contentColor,
                 textAlign = TextAlign.Center

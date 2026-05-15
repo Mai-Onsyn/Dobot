@@ -1,0 +1,118 @@
+package cius.mai_onsyn.dobot.gui.content.trajectory.points
+
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Surface
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.unit.dp
+import cius.mai_onsyn.dobot.core.trajectory.JointTrajectory
+import cius.mai_onsyn.dobot.gui.content.trajectory.file.HEIGHT
+import sh.calvin.reorderable.ReorderableColumn
+import sh.calvin.reorderable.ReorderableItem
+import sh.calvin.reorderable.rememberReorderableLazyListState
+
+@Composable
+fun PointTable(
+    modifier: Modifier = Modifier,
+    trajectory: JointTrajectory
+) {
+    Column(
+        modifier = modifier
+    ) {
+
+        val hapticFeedback = LocalHapticFeedback.current
+
+        var list by remember { mutableStateOf(List(100) { "Item $it" }) }
+        val lazyListState = rememberLazyListState()
+        val reorderableLazyListState = rememberReorderableLazyListState(lazyListState) { from, to ->
+            list = list.toMutableList().apply {
+                add(to.index, removeAt(from.index))
+            }
+
+            hapticFeedback.performHapticFeedback(HapticFeedbackType.SegmentFrequentTick)
+        }
+
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            state = lazyListState,
+            contentPadding = PaddingValues(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            items(list, key = { it }) {
+                ReorderableItem(reorderableLazyListState, key = it) { isDragging ->
+                    val elevation by animateDpAsState(if (isDragging) 4.dp else 0.dp)
+
+                    Surface(shadowElevation = elevation) {
+                        Row {
+                            Text(it, Modifier.padding(horizontal = 8.dp))
+                            IconButton(
+                                modifier = Modifier.draggableHandle(
+                                    onDragStarted = {
+                                        hapticFeedback.performHapticFeedback(HapticFeedbackType.GestureThresholdActivate)
+                                    },
+                                    onDragStopped = {
+                                        hapticFeedback.performHapticFeedback(HapticFeedbackType.GestureEnd)
+                                    },
+                                ),
+                                onClick = {},
+                            ) {
+//                                Icon(Icons.Rounded.DragHandle, contentDescription = "Reorder")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+//        val lazyListState = rememberLazyListState()
+//        val reorderableState = rememberReorderableLazyListState(
+//            lazyListState = lazyListState
+//        ) { from, to ->
+//            trajectory.apply {
+//                add(
+//                    to.index,
+//                    removeAt(from.index)
+//                )
+//            }
+//        }
+//        LazyColumn(state = lazyListState) {
+//            items(trajectory, key = { it }) { t ->
+//                ReorderableItem(reorderableState, key = t) { isDragging ->
+//                    // Item content
+//                    Row(
+//                        modifier = Modifier
+//                            .height(HEIGHT)
+//                            .fillMaxWidth()
+//                            .draggableHandle()
+//                            .background(if (isDragging) Color.LightGray else Color.White)
+//                    ) {
+//                        Text(
+//                            text = t.first.toString()
+//                        )
+//                    }
+//                }
+//            }
+//        }
+    }
+}

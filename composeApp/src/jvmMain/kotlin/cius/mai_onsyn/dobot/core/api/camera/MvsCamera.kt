@@ -4,6 +4,7 @@ import MvCameraControlWrapper.CameraControlException
 import MvCameraControlWrapper.MvCameraControl
 import MvCameraControlWrapper.MvCameraControlDefines
 import cius.mai_onsyn.dobot.log
+import java.awt.image.BufferedImage
 import kotlin.concurrent.thread
 
 private const val TIMEOUT_MILLIS = 1000L
@@ -161,5 +162,62 @@ class MvsCamera {
             }
         }
         return buffer.getFrameInfo().width > 0
+    }
+
+    // --- 增加两个变量用于复用，避免频繁 GC ---
+    private var colorBuffer = ByteArray(0)
+    private var colorImage: BufferedImage? = null
+
+    // --- 修改 convertToBgr ---
+    fun convertToBgr(frame: MvCameraControlDefines.MV_FRAME_OUT): ByteArray {
+        val info = frame.mvFrameOutInfo
+        val outBufferSize = info.width * info.height * 3
+
+        // 核心改动 1：复用数组，只有在画面尺寸变化时才重新分配
+        if (colorBuffer.size != outBufferSize) {
+            colorBuffer = ByteArray(outBufferSize)
+        }
+
+        val stConvertParam = MvCameraControlDefines.MV_CC_PIXEL_CONVERT_PARAM_EX()
+        stConvertParam.width = info.width.toInt()
+        stConvertParam.height = info.height.toInt()
+        stConvertParam.srcPixelType = info.pixelType
+        stConvertParam.srcData = frame.buffer
+        stConvertParam.srcDataLen = info.frameLen
+
+        // 注意：这里改成 BGR8_Packed，否则配合你的 TYPE_3BYTE_BGR 会出现红蓝反色
+        stConvertParam.dstPixelType = MvCameraControlDefines.MvGvspPixelType.PixelType_Gvsp_RGB8_Packed
+        stConvertParam.dstBuffer = colorBuffer
+        stConvertParam.dstBufferSize = outBufferSize
+
+        val nRet = MvCameraControl.MV_CC_ConvertPixelTypeEx(handle, stConvertParam)
+        if (nRet == MvCameraControlDefines.MV_OK) {
+            return colorBuffer
+        }
+        return ByteArray(0)
+    }
+
+    // --- 修改 capture ---
+    fun capture(): BufferedImage? {
+        try {
+            val width = buffer.getFrameInfo().width.toInt()
+            val height = buffer.getFrameInfo().height.toInt()
+
+            if (width <= 0 || height <= 0) return null
+
+            // 核心改动 2：复用 BufferedImage 对象
+            if (colorImage == null || colorImage!!.width != width || colorImage!!.height != height) {
+                colorImage = BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR)
+            }
+
+            val bgrData = convertToBgr(buffer.getFrameOut())
+            if (bgrData.isNotEmpty()) {
+                colorImage!!.raster.setDataElements(0, 0, width, height, bgrData)
+            }
+            return colorImage
+        } catch (e: Exception) {
+            log.error("capture error", e)
+            return null
+        }
     }
 }

@@ -1,6 +1,7 @@
 package cius.mai_onsyn.dobot.core.api.camera
 
 import MvCameraControlWrapper.MvCameraControlDefines
+import cius.mai_onsyn.dobot.log
 import java.awt.image.BufferedImage
 
 class CameraFrameBuffer {
@@ -35,18 +36,40 @@ class CameraFrameBuffer {
         return frameOut.mvFrameOutInfo
     }
 
-    fun toBufferedImage(): BufferedImage = synchronized(dataLock) {
-        val bf = BufferedImage(
-            frameOut.mvFrameOutInfo.width.toInt(),
-            frameOut.mvFrameOutInfo.height.toInt(),
-            BufferedImage.TYPE_3BYTE_BGR
-        )
-        bf.raster.setDataElements(
-            0, 0,
-            frameOut.mvFrameOutInfo.width.toInt(),
-            frameOut.mvFrameOutInfo.height.toInt(),
-            localBuffer
-        )
-        return bf
+    fun toBufferedImage(): BufferedImage? = synchronized(dataLock) {
+        try {
+            val bf = BufferedImage(
+                frameOut.mvFrameOutInfo.width.toInt(),
+                frameOut.mvFrameOutInfo.height.toInt(),
+                BufferedImage.TYPE_3BYTE_BGR
+            )
+            bf.raster.setDataElements(
+                0, 0,
+                frameOut.mvFrameOutInfo.width.toInt(),
+                frameOut.mvFrameOutInfo.height.toInt(),
+                localBuffer
+            )
+            return bf
+        } catch (e: Exception) {
+            try {
+                val bf = BufferedImage(
+                    frameOut.mvFrameOutInfo.width.toInt(),
+                    frameOut.mvFrameOutInfo.height.toInt(),
+                    BufferedImage.TYPE_BYTE_GRAY
+                )
+
+                bf.raster.setDataElements(
+                    0, 0,
+                    frameOut.mvFrameOutInfo.width.toInt(),
+                    frameOut.mvFrameOutInfo.height.toInt(),
+                    localBuffer
+                )
+                return bf
+            } catch (ex: Exception) {
+                log.error("toBufferedImage error", e)
+                ex.printStackTrace()
+                return null
+            }
+        }
     }
 }
