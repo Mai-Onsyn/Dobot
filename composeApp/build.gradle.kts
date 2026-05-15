@@ -37,6 +37,9 @@ kotlin {
             implementation(files("libs/MvCameraControlWrapper.jar"))
             implementation("io.ktor:ktor-client-core:3.4.1")
             implementation("io.ktor:ktor-client-cio:3.4.1")
+            implementation("sh.calvin.reorderable:reorderable:3.1.0")
+            implementation("io.github.vinceglb:filekit-core:0.14.1")
+            implementation("io.github.vinceglb:filekit-dialogs-compose:0.14.1")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

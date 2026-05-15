@@ -14,6 +14,7 @@ object TrajectoryFileManager {
     var workingDir by mutableStateOf("traj2")
 
     init {
+        workingDir = File(workingDir).absolutePath
         update()
     }
 

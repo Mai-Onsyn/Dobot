@@ -25,10 +25,12 @@ import cius.mai_onsyn.dobot.gui.util.tweenSpecColor
 import cius.mai_onsyn.dobot.gui.util.universal_module.GenericButton
 import cius.mai_onsyn.dobot.gui.util.universal_module.PopupContextItem
 import cius.mai_onsyn.dobot.gui.util.universal_module.layout.AttachedPopup
+import cius.mai_onsyn.dobot.gui.util.universal_module.layout.SingleTextInputDialog
 import cius.mai_onsyn.dobot.log
 import com.alibaba.fastjson2.JSONArray
 import java.awt.Desktop
 import java.io.File
+import java.io.IOException
 import java.nio.file.Files
 import kotlin.math.roundToInt
 
@@ -40,8 +42,14 @@ fun FileItem(
     onSelect: (String) -> Unit = {}
 ) {
     val file = File("${TrajectoryFileManager.workingDir}/$fileName")
-    if (!file.exists()) return
-    val json = JSONArray.parseArray(Files.readString(file.toPath()))
+    if (!file.exists() || file.extension != "json") return
+    val json: JSONArray
+    try {
+         json = JSONArray.parseArray(Files.readString(file.toPath()))
+    } catch (e: Exception) {
+        log.warn("Unable to parse file $fileName because ${e.message}, skip")
+        return
+    }
     val background by animateColorAsState(
         if (selected) MaterialTheme.colorScheme.primary.copy(0.7f) else Color.Transparent,
         tweenSpecColor
@@ -118,6 +126,7 @@ fun FileItem(
                 modifier = Modifier.align(Alignment.Center)
             )
         }
+        var showRenameDialog by remember { mutableStateOf(false) }
         AttachedPopup(
             triggerLayoutRect = buttonRect,
             showProgress = popupShowProgress,
@@ -146,6 +155,7 @@ fun FileItem(
                             .height(HEIGHT)
                             .interaction(
                                 onClick = {
+                                    buttonHovered = false
                                     try {
                                         Desktop.getDesktop().browseFileDirectory(file)
                                     } catch (_: Exception) {
@@ -171,6 +181,18 @@ fun FileItem(
                             )
                     )
                     PopupContextItem(
+                        text = "重命名",
+                        textColor = MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(HEIGHT)
+                            .interaction(
+                                onClick = {
+                                    showRenameDialog = true
+                                }
+                            )
+                    )
+                    PopupContextItem(
                         text = "删除",
                         textColor = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier
@@ -178,17 +200,44 @@ fun FileItem(
                             .height(HEIGHT)
                             .interaction(
                                 onClick = {
+                                    buttonHovered = false
                                     if (file.exists()) {
                                         file.delete()
                                     }
                                     TrajectoryFileManager.update()
                                     if (fileName == TrajectoryFileManager.selectedFile)
                                         TrajectoryFileManager.reselect()
-                                    buttonHovered = false
                                 }
                             )
                     )
                 }
+            }
+        }
+
+        SingleTextInputDialog(
+            visible = showRenameDialog,
+            title = "重命名",
+            placeholder = "名称",
+            initialValue = fileName.removeSuffix(".json"),
+            confirmText = "确定",
+            suffix = ".json",
+            onDismissRequest = { showRenameDialog = false },
+            validator = { if (it.isEmpty()) "文件名不能为空" else null }
+        ) { name ->
+            showRenameDialog = false
+
+            val oldName = File("${TrajectoryFileManager.workingDir}/$fileName")
+            val newName = File("${TrajectoryFileManager.workingDir}/$name.json")
+            if (newName.exists()) {
+                log.error("文件${newName.name}已存在!")
+                return@SingleTextInputDialog
+            }
+            if (oldName.renameTo(newName)) {
+                log.info("已将文件${oldName.name}重命名为${newName.name}")
+                TrajectoryFileManager.selectedFile = newName.name
+                TrajectoryFileManager.update()
+            } else {
+                log.error("重命名文件${oldName.name} -> ${newName.name}失败")
             }
         }
     }
