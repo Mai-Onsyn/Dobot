@@ -6,10 +6,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import cius.mai_onsyn.dobot.core.UIInterface.api
 import cius.mai_onsyn.dobot.core.trajectory.JointTrajectory
+import cius.mai_onsyn.dobot.log
 import java.io.File
 import java.util.UUID
 
-class TrajectoryPointsManager {
+object TrajectoryPointsManager {
 
     var file by mutableStateOf<File?>(null)
 
@@ -33,12 +34,16 @@ class TrajectoryPointsManager {
     }
 
     fun record() {
-        val trajectory = JointTrajectory().apply {
-            record(api.robotApi.calGet, api.robotApi.hand)
-        }
+        try {
+            val trajectory = JointTrajectory().apply {
+                record(api.robotApi.calGet, api.robotApi.hand)
+            }
 
-        workingTrajectory += trajectory.map { point ->
-            PointUiModel(point.copy())
+            workingTrajectory += trajectory.map { point ->
+                PointUiModel(point.copy())
+            }
+        } catch (e: Exception) {
+            log.error("Error recording trajectory", e)
         }
     }
 

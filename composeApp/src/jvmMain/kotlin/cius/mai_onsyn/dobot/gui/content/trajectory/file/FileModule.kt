@@ -1,13 +1,10 @@
 package cius.mai_onsyn.dobot.gui.content.trajectory.file
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -16,16 +13,13 @@ import cius.mai_onsyn.dobot.core.trajectory.JointTrajectory
 import cius.mai_onsyn.dobot.gui.GLOBAL_PADDING
 import cius.mai_onsyn.dobot.gui.GLOBAL_PADDING_HALF
 import cius.mai_onsyn.dobot.gui.ROUND_CORNER_SHAPE
-import cius.mai_onsyn.dobot.gui.ROUND_SMALL_CORNER_SHAPE
 import cius.mai_onsyn.dobot.gui.content.trajectory.file.TrajectoryFileManager.workingDir
 import cius.mai_onsyn.dobot.gui.content.trajectory.points.TrajectoryPointsManager
 import cius.mai_onsyn.dobot.gui.util.interaction
 import cius.mai_onsyn.dobot.gui.util.universal_module.ButtonWithIcon
 import cius.mai_onsyn.dobot.gui.util.universal_module.GenericButton
 import cius.mai_onsyn.dobot.gui.util.universal_module.SearchInput
-import cius.mai_onsyn.dobot.gui.util.universal_module.TextField
 import cius.mai_onsyn.dobot.gui.util.universal_module.layout.CardBase
-import cius.mai_onsyn.dobot.gui.util.universal_module.layout.DialogPopup
 import cius.mai_onsyn.dobot.gui.util.universal_module.layout.SingleTextInputDialog
 import dobot.composeapp.generated.resources.Res
 import dobot.composeapp.generated.resources.icon_log
@@ -37,7 +31,6 @@ import io.github.vinceglb.filekit.dialogs.openDirectoryPicker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.awt.Toolkit
 
 @Composable
 fun FileModule(

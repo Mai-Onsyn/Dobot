@@ -39,6 +39,11 @@ class JointTrajectory() : Trajectory, ArrayList<JointTrajectory.Point>() {
             val content = Files.readString(File(file).toPath())
             return fromJSON(JSONArray.parseArray(content))
         }
+
+        fun moveTo(p: Point, api: RobotMoveApi, hand: HandApi) {
+            api.movJ(p.joint, block = true)
+            hand.setPose(p.hand)
+        }
     }
 
     override fun record(api: RobotCalGetApi, hand: HandApi): Boolean {

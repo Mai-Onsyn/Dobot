@@ -9,13 +9,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cius.mai_onsyn.dobot.core.trajectory.JointTrajectory
 import cius.mai_onsyn.dobot.gui.GLOBAL_PADDING
 import cius.mai_onsyn.dobot.gui.content.trajectory.file.TrajectoryFileManager
 import cius.mai_onsyn.dobot.gui.content.trajectory.points.TrajectoryPointsManager.file
 import cius.mai_onsyn.dobot.gui.content.trajectory.points.TrajectoryPointsManager.workingTrajectory
+import cius.mai_onsyn.dobot.gui.util.interaction
+import cius.mai_onsyn.dobot.gui.util.universal_module.ButtonWithIcon
 import cius.mai_onsyn.dobot.gui.util.universal_module.layout.CardBase
+import dobot.composeapp.generated.resources.Res
+import dobot.composeapp.generated.resources.icon_reset
 import java.io.File
 
 @Composable
@@ -32,13 +37,26 @@ fun PointsModule(
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
-            Text(
-                text = "轨迹点列表${file?.let { ":   ${it.name}" } ?: ""}",
-                style = TextStyle(fontWeight = FontWeight.Bold),
-                fontSize = 14.sp,
-                color = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.padding(GLOBAL_PADDING)
-            )
+            Row {
+                Text(
+                    text = "轨迹点列表${file?.let { ":   ${it.name}" } ?: ""}",
+                    style = TextStyle(fontWeight = FontWeight.Bold),
+                    fontSize = 14.sp,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.padding(GLOBAL_PADDING)
+                )
+                ButtonWithIcon(
+                    icon = Res.drawable.icon_reset,
+                    modifier = Modifier.size(28.dp, 28.dp).align(Alignment.CenterVertically)
+                        .interaction(
+                            onClick = {
+                                val loaded = JointTrajectory.load(file!!.absolutePath)
+                                workingTrajectory.clear()
+                                workingTrajectory.addAll(loaded.map { PointUiModel(point = it) })
+                            }
+                        )
+                )
+            }
             if (file != null) {
                 LaunchedEffect(file) {
                     val loaded = JointTrajectory.load(file!!.absolutePath)

@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.IntRect
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.roundToIntRect
 import androidx.compose.ui.unit.sp
+import cius.mai_onsyn.dobot.core.UIInterface.api
 import cius.mai_onsyn.dobot.core.trajectory.JointTrajectory
 import cius.mai_onsyn.dobot.gui.ROUND_SMALL_CORNER_SHAPE
 import cius.mai_onsyn.dobot.gui.content.trajectory.file.HEIGHT
@@ -45,10 +46,12 @@ import cius.mai_onsyn.dobot.gui.util.universal_module.GenericButton
 import cius.mai_onsyn.dobot.gui.util.universal_module.PopupContextItem
 import cius.mai_onsyn.dobot.gui.util.universal_module.layout.AttachedPopup
 import cius.mai_onsyn.dobot.gui.util.universal_module.layout.ContextMenu
+import cius.mai_onsyn.dobot.log
 import dobot.composeapp.generated.resources.Res
 import dobot.composeapp.generated.resources.icon_list
 import org.jetbrains.compose.resources.painterResource
 import sh.calvin.reorderable.ReorderableCollectionItemScope
+import java.awt.Toolkit
 import kotlin.floatArrayOf
 import kotlin.math.roundToInt
 
@@ -72,6 +75,7 @@ fun ReorderableCollectionItemScope.PointItem(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .background(bg)
+            .buttonEffect()
             .interaction(
                 onClick = {
                     if (!it.keyboardModifiers.isCtrlPressed) {
@@ -159,6 +163,25 @@ fun ReorderableCollectionItemScope.PointItem(
             show = buttonHovered,
             onHoveredChange = { buttonHovered = it },
             contexts = listOf(
+                {
+                    PopupContextItem(
+                        text = "移动到该点",
+                        textColor = MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(HEIGHT)
+                            .interaction(
+                                onClick = {
+                                    try {
+                                        JointTrajectory.moveTo(point.point, api.robotApi.move, api.robotApi.hand)
+                                    } catch (e: Exception) {
+                                        log.error("移动到该点失败", e)
+                                        Toolkit.getDefaultToolkit().beep()
+                                    }
+                                }
+                            )
+                    )
+                },
                 {
                     PopupContextItem(
                         text = "删除",
