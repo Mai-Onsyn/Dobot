@@ -13,9 +13,9 @@ import java.io.File
 import java.nio.file.Files
 
 
-class JointTrajectory() : Trajectory, ArrayList<Pair<Joint, HandJoint>>() {
+class JointTrajectory() : Trajectory, ArrayList<JointTrajectory.Point>() {
 
-    constructor(list: List<Pair<Joint, HandJoint>>) : this() {
+    constructor(list: List<Point>) : this() {
         addAll(list)
     }
 
@@ -30,7 +30,7 @@ class JointTrajectory() : Trajectory, ArrayList<Pair<Joint, HandJoint>>() {
                 val joint = jointStr?.let { Joint.of(it) }
                 val hand = handStr?.let { HandJoint.of(it) } ?: HandJoint.OPEN
 
-                if (joint != null) Pair(joint, hand) else null
+                if (joint != null) Point(joint, hand) else null
             }
             return JointTrajectory(list)
         }
@@ -48,10 +48,10 @@ class JointTrajectory() : Trajectory, ArrayList<Pair<Joint, HandJoint>>() {
 
         if (jointRecord != null &&
             handRecord != null &&
-            (jointRecord != lastOrNull()?.first ||
-            handRecord != lastOrNull()?.second)
+            (jointRecord != lastOrNull()?.joint ||
+            handRecord != lastOrNull()?.hand)
             ) {
-            add(Pair(jointRecord, handRecord))
+            add(Point(jointRecord, handRecord))
             return true
         } else {
             log.warn("无法获取当前关节点，或当前点与上一个相同，不记录")
@@ -91,4 +91,6 @@ class JointTrajectory() : Trajectory, ArrayList<Pair<Joint, HandJoint>>() {
             toJSON().toJSONString(JSONWriter.Feature.PrettyFormat)
         )
     }
+
+    data class Point(val joint: Joint, val hand: HandJoint)
 }

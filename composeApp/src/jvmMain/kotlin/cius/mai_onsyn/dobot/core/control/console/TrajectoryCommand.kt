@@ -57,8 +57,8 @@ class RecordCommand(
             val index = args[1].toIntOrNull()
             if (index != null && index in 0 until trajectory.size) {
                 val point = trajectory[index]
-                api.move.movJ(point.first)
-                api.hand.setPose(point.second)
+                api.move.movJ(point.joint)
+                api.hand.setPose(point.hand)
             }
         }
         else if (args[0].lowercase() == "rml") {
