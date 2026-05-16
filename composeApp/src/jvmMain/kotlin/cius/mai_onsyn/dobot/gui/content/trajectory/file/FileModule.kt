@@ -12,11 +12,13 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cius.mai_onsyn.dobot.core.trajectory.JointTrajectory
 import cius.mai_onsyn.dobot.gui.GLOBAL_PADDING
 import cius.mai_onsyn.dobot.gui.GLOBAL_PADDING_HALF
 import cius.mai_onsyn.dobot.gui.ROUND_CORNER_SHAPE
 import cius.mai_onsyn.dobot.gui.ROUND_SMALL_CORNER_SHAPE
 import cius.mai_onsyn.dobot.gui.content.trajectory.file.TrajectoryFileManager.workingDir
+import cius.mai_onsyn.dobot.gui.content.trajectory.points.TrajectoryPointsManager
 import cius.mai_onsyn.dobot.gui.util.interaction
 import cius.mai_onsyn.dobot.gui.util.universal_module.ButtonWithIcon
 import cius.mai_onsyn.dobot.gui.util.universal_module.GenericButton
@@ -137,6 +139,15 @@ fun FileModule(
                     modifier = Modifier
                         .height(56.dp)
                         .weight(1f)
+                        .interaction(
+                            onClick = {
+                                val tr = JointTrajectory()
+                                TrajectoryPointsManager.workingTrajectory.forEach {
+                                    tr.add(it.point)
+                                }
+                                tr.write("$workingDir/${TrajectoryFileManager.selectedFile}")
+                            }
+                        )
                 ) {
                     Text(
                         text = "保存",

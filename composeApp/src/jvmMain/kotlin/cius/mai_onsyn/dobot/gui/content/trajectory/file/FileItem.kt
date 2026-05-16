@@ -1,9 +1,6 @@
 package cius.mai_onsyn.dobot.gui.content.trajectory.file
 
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
@@ -25,13 +22,11 @@ import cius.mai_onsyn.dobot.gui.util.interaction
 import cius.mai_onsyn.dobot.gui.util.tweenSpecColor
 import cius.mai_onsyn.dobot.gui.util.universal_module.GenericButton
 import cius.mai_onsyn.dobot.gui.util.universal_module.PopupContextItem
-import cius.mai_onsyn.dobot.gui.util.universal_module.layout.AttachedPopup
+import cius.mai_onsyn.dobot.gui.util.universal_module.layout.ContextMenu
 import cius.mai_onsyn.dobot.gui.util.universal_module.layout.SingleTextInputDialog
 import cius.mai_onsyn.dobot.log
-import com.alibaba.fastjson2.JSONArray
 import java.awt.Desktop
 import java.io.File
-import java.nio.file.Files
 import kotlin.math.roundToInt
 
 @Composable
@@ -94,20 +89,7 @@ fun FileItem(
         }
 
         var buttonHovered by remember { mutableStateOf(false) }
-        val density = LocalDensity.current
         var buttonRect by remember { mutableStateOf(IntRect.Zero) }
-        var copyProgress by remember { mutableStateOf(0f) }
-        val popupShowProgress by animateFloatAsState(
-            targetValue = if (buttonHovered) 1f else 0f,
-            animationSpec = tween(
-                durationMillis = 300,
-                delayMillis = if (copyProgress == 0f || copyProgress == 1f) 300 else 0,
-                easing = FastOutSlowInEasing
-            )
-        )
-        LaunchedEffect(popupShowProgress) {
-            copyProgress = popupShowProgress
-        }
         GenericButton(
             modifier = Modifier
                 .size(HEIGHT * 0.7f)
@@ -126,27 +108,15 @@ fun FileItem(
                 modifier = Modifier.align(Alignment.Center)
             )
         }
+        val density = LocalDensity.current
         var showRenameDialog by remember { mutableStateOf(false) }
-        AttachedPopup(
-            triggerLayoutRect = buttonRect,
-            showProgress = popupShowProgress,
-            shape = ROUND_SMALL_CORNER_SHAPE,
-            minWidth = 0.dp,
-            minHeight = 0.dp,
+        ContextMenu(
+            anchorRect = buttonRect,
+            show = buttonHovered,
+            align = Alignment.TopEnd,
             offset = IntOffset(0, (HEIGHT * 0.7f * density.density).value.roundToInt()),
-            align = Alignment.TopEnd
-        ) {
-            Box(
-                modifier = Modifier
-                    .width(120.dp)
-                    .background(MaterialTheme.colorScheme.surface)
-                    .interaction(
-                        onHoveredChange = { buttonHovered = it }
-                    )
-            ) {
-                Column(
-                    modifier = Modifier.fillMaxWidth()
-                ) {
+            onHoveredChange = { buttonHovered = it },
+            contexts = listOf({
                     PopupContextItem(
                         text = "定位到文件",
                         textColor = MaterialTheme.colorScheme.onSurface,
@@ -162,8 +132,10 @@ fun FileItem(
                                         val command = when {
                                             System.getProperty("os.name").contains("win", ignoreCase = true) ->
                                                 listOf("explorer.exe", "/select,", file.absolutePath)
+
                                             System.getProperty("os.name").contains("mac", ignoreCase = true) ->
                                                 listOf("open", "-R", file.absolutePath)
+
                                             else ->
                                                 listOf("xdg-open", file.parentFile.absolutePath)
                                         }
@@ -180,6 +152,7 @@ fun FileItem(
                                 }
                             )
                     )
+                }, {
                     PopupContextItem(
                         text = "重命名",
                         textColor = MaterialTheme.colorScheme.onSurface,
@@ -192,6 +165,7 @@ fun FileItem(
                                 }
                             )
                     )
+                }, {
                     PopupContextItem(
                         text = "删除",
                         textColor = MaterialTheme.colorScheme.onSurface,
@@ -211,8 +185,8 @@ fun FileItem(
                             )
                     )
                 }
-            }
-        }
+            )
+        )
 
         SingleTextInputDialog(
             visible = showRenameDialog,

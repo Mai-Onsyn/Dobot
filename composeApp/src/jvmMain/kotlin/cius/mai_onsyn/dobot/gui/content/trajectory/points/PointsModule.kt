@@ -14,6 +14,7 @@ import cius.mai_onsyn.dobot.core.trajectory.JointTrajectory
 import cius.mai_onsyn.dobot.gui.GLOBAL_PADDING
 import cius.mai_onsyn.dobot.gui.content.trajectory.file.TrajectoryFileManager
 import cius.mai_onsyn.dobot.gui.content.trajectory.points.TrajectoryPointsManager.file
+import cius.mai_onsyn.dobot.gui.content.trajectory.points.TrajectoryPointsManager.workingTrajectory
 import cius.mai_onsyn.dobot.gui.util.universal_module.layout.CardBase
 import java.io.File
 
@@ -39,14 +40,13 @@ fun PointsModule(
                 modifier = Modifier.padding(GLOBAL_PADDING)
             )
             if (file != null) {
-                val trajectory = remember { mutableStateListOf<JointTrajectory.Point>() }
                 LaunchedEffect(file) {
                     val loaded = JointTrajectory.load(file!!.absolutePath)
-                    trajectory.clear()
-                    trajectory.addAll(loaded)
+                    workingTrajectory.clear()
+                    workingTrajectory.addAll(loaded.map { PointUiModel(point = it) })
                 }
                 PointTable(
-                    trajectory = trajectory,
+                    trajectory = workingTrajectory,
                     modifier = Modifier
                         .weight(1f)
                         .fillMaxWidth()
