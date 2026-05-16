@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cius.mai_onsyn.dobot.gui.content.trajectory.detail.DetailBox
 import cius.mai_onsyn.dobot.gui.util.universal_module.layout.CardBase
 import dobot.composeapp.generated.resources.Res
 import dobot.composeapp.generated.resources.icon_arm
@@ -77,19 +78,19 @@ fun ConnectModule(
                     .verticalScroll(rememberScrollState())
                 ) {
                     Spacer(modifier = Modifier.weight(0.4f))
-                    DeviceStatusLabel(
+                    DetailBox(
                         name = "机械臂",
                         icon = Res.drawable.icon_arm,
                         modifier = Modifier.height(40.dp)
                     )
                     Spacer(modifier = Modifier.height(15.dp))
-                    DeviceStatusLabel(
+                    DetailBox(
                         name = "灵巧手",
                         icon = Res.drawable.icon_claw,
                         modifier = Modifier.height(40.dp)
                     )
                     Spacer(modifier = Modifier.height(15.dp))
-                    DeviceStatusLabel(
+                    DetailBox(
                         name = "升降台",
                         icon = Res.drawable.icon_shelf,
                         modifier = Modifier.height(40.dp)
@@ -102,19 +103,19 @@ fun ConnectModule(
                     .verticalScroll(rememberScrollState())
                 ) {
                     Spacer(modifier = Modifier.weight(0.4f))
-                    DeviceStatusLabel(
+                    DetailBox(
                         name = "蠕动泵",
                         icon = Res.drawable.icon_pump_a,
                         modifier = Modifier.height(40.dp)
                     )
                     Spacer(modifier = Modifier.height(15.dp))
-                    DeviceStatusLabel(
+                    DetailBox(
                         name = "抽水泵",
                         icon = Res.drawable.icon_pump_b,
                         modifier = Modifier.height(40.dp)
                     )
                     Spacer(modifier = Modifier.height(15.dp))
-                    DeviceStatusLabel(
+                    DetailBox(
                         name = "摄像机",
                         icon = Res.drawable.icon_camera,
                         modifier = Modifier.height(40.dp)
