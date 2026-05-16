@@ -9,13 +9,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cius.mai_onsyn.dobot.gui.content.experience.connect.OperationButton
+import cius.mai_onsyn.dobot.gui.util.interaction
 import dobot.composeapp.generated.resources.Res
 import dobot.composeapp.generated.resources.icon_pump_b
+import org.jetbrains.compose.resources.DrawableResource
+import javax.swing.Icon
 
 @Composable
 fun OperationRow(
     bottonName1: String,
     bottonName2: String,
+    icon1: DrawableResource ?= null,
+    icon2: DrawableResource ?= null,
+    onClick1:()-> Unit={},
+    onClick2:()-> Unit={},
     modifier: Modifier = Modifier
         .fillMaxWidth()
         .wrapContentHeight()
@@ -26,17 +33,20 @@ fun OperationRow(
         OperationButton(
             modifier = Modifier
                 .weight(1f)
-                .height(40.dp),
+                .height(40.dp)
+                .interaction(onClick = { onClick1()})
+            ,
             name = bottonName1,
-            icon = Res.drawable.icon_pump_b
+            icon = icon1
         )
         Spacer(modifier = Modifier.weight(0.1f))
         OperationButton(
             modifier = Modifier
                 .weight(1f)
-                .height(40.dp),
+                .height(40.dp)
+                .interaction(onClick = { onClick2()}),
             name = bottonName2,
-            icon = Res.drawable.icon_pump_b
+            icon = icon2
         )
     }
 }
