@@ -94,6 +94,7 @@ fun ReorderableCollectionItemScope.PointItem(
         if (!hovered) BorderedText(
             isStart = true,
             text = (index + 1).toString(),
+            textColor = Color.Black,
             modifier = startElementModifier
         ) else BorderedBox(
             isStart = true,
@@ -109,7 +110,7 @@ fun ReorderableCollectionItemScope.PointItem(
         ) {
             Icon(
                 painter = painterResource(Res.drawable.icon_list),
-                tint = content,
+                tint = Color.Black,
                 modifier = Modifier.size(20.dp).align(Alignment.Center),
                 contentDescription = null
             )
@@ -150,7 +151,7 @@ fun ReorderableCollectionItemScope.PointItem(
             ) {
                 Text(
                     text = "•••",
-                    color = MaterialTheme.colorScheme.onSurface,
+                    color = content,
                     modifier = Modifier.align(Alignment.Center)
                 )
             }

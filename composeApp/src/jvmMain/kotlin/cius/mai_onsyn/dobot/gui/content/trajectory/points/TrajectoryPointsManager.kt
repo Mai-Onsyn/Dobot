@@ -7,6 +7,7 @@ import androidx.compose.runtime.setValue
 import cius.mai_onsyn.dobot.core.UIInterface.api
 import cius.mai_onsyn.dobot.core.trajectory.JointTrajectory
 import cius.mai_onsyn.dobot.log
+import java.awt.Toolkit
 import java.io.File
 import java.util.UUID
 
@@ -44,6 +45,7 @@ object TrajectoryPointsManager {
             }
         } catch (e: Exception) {
             log.error("Error recording trajectory", e)
+            Toolkit.getDefaultToolkit().beep()
         }
     }
 

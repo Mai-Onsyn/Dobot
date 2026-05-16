@@ -97,5 +97,10 @@ class JointTrajectory() : Trajectory, ArrayList<JointTrajectory.Point>() {
         )
     }
 
-    data class Point(val joint: Joint, val hand: HandJoint)
+    data class Point(val joint: Joint, val hand: HandJoint) {
+        fun moveTo(api: RobotMoveApi, hand: HandApi, block: Boolean = false) {
+            api.movJ(joint, block = block)
+            hand.setPose(this.hand)
+        }
+    }
 }
