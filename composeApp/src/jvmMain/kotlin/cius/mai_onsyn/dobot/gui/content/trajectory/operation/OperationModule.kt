@@ -27,6 +27,7 @@ import cius.mai_onsyn.dobot.gui.GLOBAL_PADDING
 import cius.mai_onsyn.dobot.gui.WHITE_COLOR
 import cius.mai_onsyn.dobot.gui.content.experience.connect.OperationButton
 import cius.mai_onsyn.dobot.gui.content.experience.control.MorphingPlayPauseButton
+import cius.mai_onsyn.dobot.gui.content.trajectory.points.TrajectoryPointsManager
 import cius.mai_onsyn.dobot.gui.experimenting
 import cius.mai_onsyn.dobot.gui.util.universal_module.layout.CardBase
 import dobot.composeapp.generated.resources.Res
@@ -58,17 +59,23 @@ fun OperationModule(
                     .verticalScroll(rememberScrollState())
                     .padding(horizontal = GLOBAL_PADDING)
             ){
-
-                OperationRow("编辑","重置")
+                OperationRow("记录","翻转",
+                    onClick1 = { TrajectoryPointsManager.record() },
+                    onClick2 = { TrajectoryPointsManager.flip() })
                 Spacer(modifier = Modifier.height(12.dp))
-                OperationRow("上移","下移")
+                OperationRow("上移","下移",
+                    onClick1 = { TrajectoryPointsManager.moveUp() },
+                    onClick2 = { TrajectoryPointsManager.moveDown() })
                 Spacer(modifier = Modifier.height(12.dp))
-                OperationRow("翻转","记录当前点")
+                OperationRow("复制","剪贴",
+                    onClick1 = { TrajectoryPointsManager.copy() },
+                    onClick2 = { TrajectoryPointsManager.cut() })
                 Spacer(modifier = Modifier.height(12.dp))
-                OperationRow("向上粘贴","向下粘贴")
+                OperationRow("向上粘贴","向下粘贴",
+                    onClick1 = { TrajectoryPointsManager.pasteUp() },
+                    onClick2 = { TrajectoryPointsManager.pasteDown() })
                 Spacer(modifier = Modifier.height(12.dp))
-            }
+         }
         }
-
     }
 }

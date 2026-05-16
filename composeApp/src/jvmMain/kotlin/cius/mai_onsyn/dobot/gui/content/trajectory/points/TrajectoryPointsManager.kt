@@ -9,7 +9,7 @@ import cius.mai_onsyn.dobot.core.trajectory.JointTrajectory
 import java.io.File
 import java.util.UUID
 
-class TrajectoryPointsManager {
+object TrajectoryPointsManager {
 
     var file by mutableStateOf<File?>(null)
 

@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import cius.mai_onsyn.dobot.gui.GREEN_COLOR
@@ -47,7 +48,9 @@ fun OperationButton(
         shape = ROUND_CORNER_SHAPE,
     ) {
         Row(
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.align(Alignment.CenterStart)
+                .padding(8.dp)
         ) {
             if (icon!=null){
                 Icon(
@@ -65,17 +68,4 @@ fun OperationButton(
             )
         }
     }
-
-//    Button(
-//        onClick = { },
-//        modifier = modifier
-//            .fillMaxWidth(),
-//        colors = ButtonDefaults.buttonColors(
-//            backgroundColor = MaterialTheme.colorScheme.surfaceContainerLow,
-//            contentColor = MaterialTheme.colorScheme.onSurface
-//        ),
-//        shape = ROUND_CORNER_SHAPE,
-//    ) {
-//
-//    }
 }
