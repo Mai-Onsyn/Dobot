@@ -18,6 +18,7 @@ import cius.mai_onsyn.dobot.core.UIInterface.api
 import cius.mai_onsyn.dobot.core.robot.hand.HandJoint
 import cius.mai_onsyn.dobot.gui.*
 import cius.mai_onsyn.dobot.gui.content.experience.control.MorphingPlayPauseButton
+import cius.mai_onsyn.dobot.gui.content.trajectory.file.TrajectoryFileManager.selectedFile
 import cius.mai_onsyn.dobot.gui.content.trajectory.points.TrajectoryPointsManager.selectedPointIds
 import cius.mai_onsyn.dobot.gui.content.trajectory.points.TrajectoryPointsManager.workingTrajectory
 import cius.mai_onsyn.dobot.gui.util.interaction
@@ -56,6 +57,9 @@ fun ReplayModule(
                         if (selectedPointIds.size == 1) {
                             text = (workingTrajectory.indexOfFirst { selectedPointIds.first() == it.id } + 1).toString()
                         }
+                    }
+                    LaunchedEffect(selectedFile) {
+                        text = 1.toString()
                     }
                     Row(
                         verticalAlignment = Alignment.CenterVertically
@@ -130,11 +134,11 @@ fun ReplayModule(
                                         if (!isThreadRunning) isPlaying = !isPlaying
                                         if (isPlaying) {
                                             Thread.ofVirtual().start {
-                                                val startIndex = text.toIntOrNull()
-                                                if (startIndex == null) {
-                                                    isPlaying = false
-                                                    return@start
-                                                }
+                                                val startIndex = ((text.toIntOrNull() ?: 1) - 1).coerceIn(0, workingTrajectory.size - 1)
+//                                                if (startIndex == null) {
+//                                                    isPlaying = false
+//                                                    return@start
+//                                                }
                                                 isThreadRunning = true
 
                                                 val tr = workingTrajectory.subList(startIndex, workingTrajectory.size).map { it.point }
@@ -146,6 +150,7 @@ fun ReplayModule(
                                                         if (lastHand != null && lastHand != tr[i].hand) {
                                                             Thread.sleep(2000)
                                                         }
+                                                        text = (workingTrajectory.indexOf(workingTrajectory.find { tr[i] == it.point }) + 1).toString()
                                                         lastHand = tr[i++].hand
                                                     } catch (e: Exception) {
                                                         log.error("Error while replaying trajectory", e)

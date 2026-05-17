@@ -58,24 +58,24 @@ class ConsoleApp(
 
     fun executeLine(lineInput: String) {
         if (lineInput.isBlank()) return
-        if (!lineInput.startsWith("sleep")) log.info("正在执行命令：$lineInput")
+//        if (!lineInput.startsWith("sleep"))
+        log.info("正在执行命令：$lineInput")
+        val parts = lineInput.trim().split("\\s+".toRegex())
+        val cmdName = parts[0]
+        val args = parts.drop(1)
 
-        if (lineInput.startsWith("sleep")) {
-            val parts = lineInput.trim().split("\\s+".toRegex())
-            val cmdName = parts[0]
-            val args = parts.drop(1)
-
-            val command = commands[cmdName]
-            if (command == null) {
-                log.error("未知命令: $cmdName")
-                return
-            }
-
-            try {
-                command.execute(args)
-            } catch (e: Exception) {
-                log.error("命令执行失败: ${e.message}")
-            }
+        val command = commands[cmdName]
+        if (command == null) {
+            log.error("未知命令: $cmdName")
+            return
         }
+
+        try {
+            command.execute(args)
+        } catch (e: Exception) {
+            log.error("命令执行失败: ${e.message}")
+        }
+//        if (lineInput.startsWith("sleep")) {
+//        }
     }
 }

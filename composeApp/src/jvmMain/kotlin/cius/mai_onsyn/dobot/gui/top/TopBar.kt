@@ -4,12 +4,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -27,6 +29,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import cius.mai_onsyn.dobot.gui.BLUE_COLOR
+import cius.mai_onsyn.dobot.gui.GLOBAL_PADDING_HALF
+import cius.mai_onsyn.dobot.gui.GREEN_COLOR
 import cius.mai_onsyn.dobot.gui.ROUND_CORNER_SHAPE
 import cius.mai_onsyn.dobot.gui.util.Config.isDarkMode
 import cius.mai_onsyn.dobot.gui.util.appShadow
@@ -71,10 +76,11 @@ fun TopBar(
         }
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxHeight()
+            modifier = Modifier.fillMaxHeight().align(Alignment.CenterEnd)
         ) {
-
+            DragControl(true, BLUE_COLOR)
+            Spacer(Modifier.width(GLOBAL_PADDING_HALF))
+            DragControl(false, GREEN_COLOR)
         }
-
     }
 }

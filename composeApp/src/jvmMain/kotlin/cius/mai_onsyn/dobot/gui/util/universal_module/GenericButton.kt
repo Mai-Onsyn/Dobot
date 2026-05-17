@@ -23,7 +23,7 @@ fun GenericButton(
     shape: Shape = RectangleShape,
     borderColor: Color = Color.Transparent,
     borderRadius: Dp = 1.dp,
-    shadowElevation: Dp = 4.dp,
+    shadowElevation: Dp = 0.dp,
     content: @Composable BoxScope.() -> Unit = {}
 ) {
     Box(
